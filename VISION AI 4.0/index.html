@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#07080d">
+    <meta name="description" content="VISION — Ciência, Tecnologia e Sustentabilidade">
+    <title>VISION</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" href="assets/icons/icon-192.png">
+    <link rel="apple-touch-icon" href="assets/icons/icon-192.png">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- Filtros SVG usados no simulador de doenças -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+        <filter id="astig"><feGaussianBlur id="astigStd" stdDeviation="5 0.3"/></filter>
+        <filter id="deutan"><feColorMatrix type="matrix" values="0.625 0.375 0 0 0  0.7 0.3 0 0 0  0 0.3 0.7 0 0  0 0 0 1 0"/></filter>
+    </defs>
+</svg>
+
+<!-- SPLASH -->
+<div id="splash">
+    <div class="splash-logo">
+        <div class="iris"></div>
+        <h1>VISION</h1>
+        <p>Ciência • Tecnologia • Sustentabilidade</p>
+    </div>
+</div>
+
+<main class="app">
+
+    <!-- ================= HOME ================= -->
+    <section id="home" class="screen active">
+        <header class="hero">
+            <div class="iris"></div>
+            <h1>VISION</h1>
+            <p>Da Câmara Escura às Câmeras Modernas</p>
+            <small>Projeto Sou Cientista • EREM Padre Nércio Rodrigues • 2ºA</small>
+        </header>
+
+        <div class="chips" id="homeFilter">
+            <button class="chip active" data-filter="all">Tudo</button>
+            <button class="chip" data-filter="fisica">Física</button>
+            <button class="chip" data-filter="quimica">Química</button>
+            <button class="chip" data-filter="biologia">Biologia</button>
+        </div>
+
+        <div class="cards">
+            <button class="card" data-go="eye" data-subjects="biologia fisica">
+                <span class="card-icon">👁️</span><b>Olho Humano</b><small>Explore o olho por dentro.</small>
+                <em class="tags"><i>Biologia</i><i>Física</i></em>
+            </button>
+            <button class="card" data-go="camera" data-subjects="fisica">
+                <span class="card-icon">📷</span><b>Câmara Escura</b><small>Simulador de imagem.</small>
+                <em class="tags"><i>Física</i></em>
+            </button>
+            <button class="card" data-go="light" data-subjects="fisica biologia">
+                <span class="card-icon">🌈</span><b>Luz e Cores</b><small>Espectro, cones e RGB.</small>
+                <em class="tags"><i>Física</i><i>Biologia</i></em>
+            </button>
+            <button class="card" data-go="compare" data-subjects="fisica biologia quimica">
+                <span class="card-icon">⚖️</span><b>Olho × Câmera</b><small>Analógica e digital.</small>
+                <em class="tags"><i>Física</i><i>Química</i><i>Biologia</i></em>
+            </button>
+            <button class="card" data-go="diseases" data-subjects="biologia fisica">
+                <span class="card-icon">🩺</span><b>Doenças Visuais</b><small>Simule como se enxerga.</small>
+                <em class="tags"><i>Biologia</i><i>Física</i></em>
+            </button>
+            <button class="card" data-go="chemistry" data-subjects="quimica">
+                <span class="card-icon">⚗️</span><b>Química</b><small>Filme, sensores e metais.</small>
+                <em class="tags"><i>Química</i></em>
+            </button>
+            <button class="card" data-go="sustainability" data-subjects="quimica biologia">
+                <span class="card-icon">🌱</span><b>Sustentabilidade</b><small>Lixo eletrônico.</small>
+                <em class="tags"><i>Química</i><i>Biologia</i></em>
+            </button>
+            <button class="card" data-go="timeline" data-subjects="fisica">
+                <span class="card-icon">🕒</span><b>Linha do Tempo</b><small>Da câmara ao celular.</small>
+                <em class="tags"><i>Física</i></em>
+            </button>
+            <button class="card" data-go="quiz" data-subjects="fisica quimica biologia">
+                <span class="card-icon">🎮</span><b>VISION quiz</b><small>Teste seus conhecimentos.</small>
+                <em class="tags"><i>Todas</i></em>
+            </button>
+            <button class="card" data-go="team" data-subjects="fisica quimica biologia">
+                <span class="card-icon">👥</span><b>Equipe</b><small>Alunos e professores.</small>
+                <em class="tags"><i>Projeto</i></em>
+            </button>
+        </div>
+    </section>
+
+    <!-- ================= OLHO ================= -->
+    <section id="eye" class="screen">
+        <button class="back" data-go="home">‹ Início</button>
+        <h2>👁️ Olho Humano</h2>
+        <p class="lead">Alterne entre o corte de perfil e a vista de frente. Toque nas estruturas e mexa na luz para ver a pupila mudar.</p>
+
+        <div class="tabbed">
+            <div class="tabs">
+                <button class="active" data-tab="eye-side">Perfil</button>
+                <button data-tab="eye-front">Frente</button>
+            </div>
+
+            <div class="tab-panel active" id="eye-side">
+        <div class="stage">
+            <svg id="eyeSvg" viewBox="0 0 520 300" role="img" aria-label="Corte lateral do olho humano com raios de luz">
+                <defs>
+                    <radialGradient id="gSclera" cx="40%" cy="35%" r="75%">
+                        <stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#c9d3ea"/>
+                    </radialGradient>
+                    <radialGradient id="gVit" cx="35%" cy="40%" r="75%">
+                        <stop offset="0" stop-color="#e8f3ff"/><stop offset="1" stop-color="#9cc3ff"/>
+                    </radialGradient>
+                    <linearGradient id="gIris" x1="0" y1="0" x2="1" y2="1">
+                        <stop offset="0" stop-color="#46d7c6"/><stop offset="1" stop-color="#2c6fd6"/>
+                    </linearGradient>
+                    <radialGradient id="gLens" cx="50%" cy="50%" r="60%">
+                        <stop offset="0" stop-color="#fff3c4" stop-opacity=".95"/>
+                        <stop offset="1" stop-color="#ffd479" stop-opacity=".7"/>
+                    </radialGradient>
+                </defs>
+
+                <!-- nervo óptico (atrás da esclera) -->
+                <path class="eye-part" data-part="nervo" d="M428 172 L500 198" fill="none" stroke="#f2c46d" stroke-width="18" stroke-linecap="round"/>
+
+                <!-- esclera e humor vítreo -->
+                <circle cx="310" cy="150" r="122" fill="url(#gSclera)" stroke="#8fa3cf" stroke-width="2"/>
+                <circle class="eye-part" data-part="vitreo" cx="310" cy="150" r="114" fill="url(#gVit)"/>
+
+                <!-- retina e fóvea -->
+                <path class="eye-part" data-part="retina" d="M367 51.3 A114 114 0 0 1 367 248.7" fill="none" stroke="#ff6b86" stroke-width="7" stroke-linecap="round"/>
+                <circle class="eye-part" data-part="fovea" cx="421" cy="150" r="6" fill="#ffca55" stroke="#ffffff" stroke-width="1.5"/>
+
+                <!-- músculos ciliares -->
+                <ellipse cx="250" cy="99" rx="9" ry="12" fill="#e59a6c"/>
+                <ellipse cx="250" cy="201" rx="9" ry="12" fill="#e59a6c"/>
+
+                <!-- cristalino -->
+                <ellipse class="eye-part" data-part="cristalino" cx="252" cy="150" rx="17" ry="46" fill="url(#gLens)" stroke="#ffbe3d" stroke-width="2"/>
+
+                <!-- íris e pupila -->
+                <rect id="irisTop" class="eye-part" data-part="iris" x="215" y="84" width="12" height="58" rx="4" fill="url(#gIris)"/>
+                <rect id="irisBot" class="eye-part" data-part="iris" x="215" y="158" width="12" height="58" rx="4" fill="url(#gIris)"/>
+                <rect id="pupilHit" class="eye-part" data-part="pupila" x="212" y="142" width="18" height="16" fill="transparent"/>
+
+                <!-- córnea -->
+                <path class="eye-part" data-part="cornea" d="M210 88 Q146 150 210 212 Z" fill="rgba(140,200,255,.35)" stroke="#8fd0ff" stroke-width="3" stroke-linejoin="round"/>
+
+                <!-- raios de luz -->
+                <g id="rays"></g>
+
+                <!-- rótulos -->
+                <g class="lbl">
+                    <text x="24" y="98" style="text-anchor:start">Luz ➜</text>
+                    <text x="150" y="76">Córnea</text>
+                    <text x="222" y="58">Íris</text>
+                    <text x="252" y="272">Cristalino</text>
+                    <text x="400" y="38">Retina</text>
+                    <text x="468" y="238">Nervo óptico</text>
+                </g>
+            </svg>
+        </div>
+            </div>
+
+            <div class="tab-panel" id="eye-front">
+                <div class="stage">
+                    <svg id="eyeFrontSvg" viewBox="0 0 400 360" role="img" aria-label="Olho humano visto de frente">
+                        <defs>
+                            <radialGradient id="gFrontSkin" cx="50%" cy="40%" r="70%">
+                                <stop offset="0" stop-color="#e8c4a8"/><stop offset="1" stop-color="#c99678"/>
+                            </radialGradient>
+                            <radialGradient id="gFrontSclera" cx="38%" cy="32%" r="70%">
+                                <stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#d5deef"/>
+                            </radialGradient>
+                            <radialGradient id="gFrontIris" cx="42%" cy="38%" r="62%">
+                                <stop offset="0" stop-color="#7ee8dc"/>
+                                <stop offset=".35" stop-color="#2c6fd6"/>
+                                <stop offset=".78" stop-color="#1a3f8a"/>
+                                <stop offset="1" stop-color="#0c2248"/>
+                            </radialGradient>
+                            <radialGradient id="gFrontPupil" cx="42%" cy="38%" r="70%">
+                                <stop offset="0" stop-color="#2a3148"/><stop offset="1" stop-color="#05060a"/>
+                            </radialGradient>
+                            <clipPath id="frontFissure">
+                                <path d="M28 180 C 90 108, 310 108, 372 180 C 310 252, 90 252, 28 180 Z"/>
+                            </clipPath>
+                            <clipPath id="frontIrisClip">
+                                <circle cx="200" cy="180" r="78"/>
+                            </clipPath>
+                        </defs>
+
+                        <!-- pele ao redor -->
+                        <rect x="0" y="20" width="400" height="320" rx="28" fill="url(#gFrontSkin)"/>
+
+                        <!-- globo (esclera) -->
+                        <g clip-path="url(#frontFissure)">
+                            <circle cx="200" cy="180" r="148" fill="url(#gFrontSclera)"/>
+                            <ellipse cx="58" cy="180" rx="18" ry="38" fill="#c9b8a4" opacity=".55"/>
+                            <ellipse cx="342" cy="180" rx="18" ry="38" fill="#c9b8a4" opacity=".55"/>
+                        </g>
+
+                        <!-- íris -->
+                        <g class="eye-part" data-part="iris" clip-path="url(#frontFissure)">
+                            <circle cx="200" cy="180" r="78" fill="url(#gFrontIris)" stroke="#16356e" stroke-width="3"/>
+                            <g clip-path="url(#frontIrisClip)" opacity=".45">
+                                <g stroke="#c8f6ff" stroke-width=".7">
+                                    <line x1="200" y1="180" x2="200" y2="102"/>
+                                    <line x1="200" y1="180" x2="255" y2="114"/>
+                                    <line x1="200" y1="180" x2="275" y2="155"/>
+                                    <line x1="200" y1="180" x2="275" y2="205"/>
+                                    <line x1="200" y1="180" x2="255" y2="246"/>
+                                    <line x1="200" y1="180" x2="200" y2="258"/>
+                                    <line x1="200" y1="180" x2="145" y2="246"/>
+                                    <line x1="200" y1="180" x2="125" y2="205"/>
+                                    <line x1="200" y1="180" x2="125" y2="155"/>
+                                    <line x1="200" y1="180" x2="145" y2="114"/>
+                                    <line x1="200" y1="180" x2="238" y2="108"/>
+                                    <line x1="200" y1="180" x2="268" y2="132"/>
+                                    <line x1="200" y1="180" x2="278" y2="180"/>
+                                    <line x1="200" y1="180" x2="268" y2="228"/>
+                                    <line x1="200" y1="180" x2="238" y2="252"/>
+                                    <line x1="200" y1="180" x2="162" y2="252"/>
+                                    <line x1="200" y1="180" x2="132" y2="228"/>
+                                    <line x1="200" y1="180" x2="122" y2="180"/>
+                                    <line x1="200" y1="180" x2="132" y2="132"/>
+                                    <line x1="200" y1="180" x2="162" y2="108"/>
+                                </g>
+                            </g>
+                            <circle cx="200" cy="180" r="78" fill="none" stroke="#8fd0ff" stroke-width="1.5" opacity=".35"/>
+                        </g>
+
+                        <!-- pupila (raio muda com a luz) -->
+                        <circle id="frontPupil" class="eye-part" data-part="pupila" cx="200" cy="180" r="32" fill="url(#gFrontPupil)" clip-path="url(#frontFissure)"/>
+
+                        <!-- córnea: brilho + anel clicável por cima da íris -->
+                        <g clip-path="url(#frontFissure)">
+                            <circle cx="200" cy="180" r="92" fill="rgba(140,200,255,.12)" pointer-events="none"/>
+                            <circle class="eye-part" data-part="cornea" cx="200" cy="180" r="92" fill="none" stroke="rgba(143,208,255,.85)" stroke-width="10"/>
+                            <ellipse cx="172" cy="154" rx="18" ry="12" fill="rgba(255,255,255,.75)" pointer-events="none"/>
+                            <ellipse cx="226" cy="148" rx="7" ry="5" fill="rgba(255,255,255,.45)" pointer-events="none"/>
+                        </g>
+
+                        <!-- pálpebras (por cima, sem tapar o centro) -->
+                        <path d="M18 180 C 90 96, 310 96, 382 180 C 310 128, 90 128, 18 180 Z" fill="#d4a88c"/>
+                        <path d="M18 180 C 90 264, 310 264, 382 180 C 310 232, 90 232, 18 180 Z" fill="#c99274"/>
+                        <path d="M40 128 C 120 108, 280 108, 360 128" fill="none" stroke="#6b4638" stroke-width="3" stroke-linecap="round" opacity=".55"/>
+
+                        <g class="lbl">
+                            <text x="200" y="48">Córnea (camada transparente)</text>
+                            <text x="78" y="178">Íris</text>
+                            <text x="322" y="178">Pupila</text>
+                        </g>
+                    </svg>
+                </div>
+                <p class="note">De frente você vê a <b>córnea</b>, a <b>íris</b> e a <b>pupila</b>. Cristalino, retina, fóvea e nervo óptico aparecem no corte de perfil.</p>
+            </div>
+        </div>
+
+        <label class="slider">
+            <span>💡 Luz do ambiente <b id="lightVal">50%</b></span>
+            <input type="range" id="lightRange" min="0" max="100" value="50">
+        </label>
+        <p class="readout" id="pupilReadout"></p>
+
+        <div class="chips" id="eyeChips">
+            <button class="chip" data-part="cornea">Córnea</button>
+            <button class="chip" data-part="iris">Íris</button>
+            <button class="chip" data-part="pupila">Pupila</button>
+            <button class="chip" data-part="cristalino">Cristalino</button>
+            <button class="chip" data-part="vitreo">Humor vítreo</button>
+            <button class="chip" data-part="retina">Retina</button>
+            <button class="chip" data-part="fovea">Fóvea</button>
+            <button class="chip" data-part="nervo">Nervo óptico</button>
+        </div>
+
+        <div id="eyeInfo" class="info-card">
+            <p>Toque em uma parte do olho (no desenho ou nos botões) para saber mais.</p>
+        </div>
+    </section>
+
+    <!-- ================= CÂMARA ESCURA ================= -->
+    <section id="camera" class="screen">
+        <button class="back" data-go="home">‹ Início</button>
+        <h2>📷 Câmara Escura</h2>
+
+        <div class="tabbed">
+            <div class="tabs">
+                <button class="active" data-tab="cam-sim">Simulador</button>
+                <button data-tab="cam-teoria">Teoria</button>
+            </div>
+
+            <div class="tab-panel active" id="cam-sim">
+                <div class="stage">
+                    <svg viewBox="0 0 520 270" role="img" aria-label="Simulador de câmara escura">
+                        <defs>
+                            <filter id="camBlur" filterUnits="userSpaceOnUse" x="380" y="0" width="140" height="270">
+                                <feGaussianBlur id="camBlurStd" stdDeviation="1"/>
+                            </filter>
+                        </defs>
+                        <rect x="260" y="40" width="190" height="210" fill="rgba(255,255,255,.03)" stroke="#4a5486" stroke-dasharray="5 5"/>
+                        <polygon id="cone" fill="rgba(255,214,102,.22)" points="0,0 0,0 0,0"/>
+                        <rect id="wallTop" x="256" y="40" width="8" height="85" fill="#59629a"/>
+                        <rect id="wallBot" x="256" y="135" width="8" height="115" fill="#59629a"/>
+                        <line x1="450" y1="40" x2="450" y2="250" stroke="#e9edf7" stroke-width="3" opacity=".5"/>
+
+                        <line id="objLine" x1="150" y1="130" x2="150" y2="70" stroke="#c8ccda" stroke-width="4" stroke-linecap="round"/>
+                        <circle id="objFlame" cx="150" cy="70" r="7" fill="#ffb300"/>
+
+                        <g id="imgGroup" filter="url(#camBlur)">
+                            <line id="imgLine" x1="450" y1="130" x2="450" y2="200" stroke="#c8ccda" stroke-width="4" stroke-linecap="round"/>
+                            <circle id="imgFlame" cx="450" cy="200" r="7" fill="#ffb300"/>
+                        </g>
+
+                        <g class="lbl">
+                            <text id="objLbl" x="150" y="150">Objeto</text>
+                            <text x="260" y="30">Furo</text>
+                            <text x="450" y="30">Anteparo</text>
+                            <text x="450" y="264">imagem invertida</text>
+                        </g>
+                    </svg>
+                </div>
+
+                <label class="slider">
+                    <span>Tamanho do furo <b id="holeVal"></b></span>
+                    <input type="range" id="holeRange" min="2" max="24" value="6">
+                </label>
+                <label class="slider">
+                    <span>Distância do objeto <b id="distVal"></b></span>
+                    <input type="range" id="distRange" min="110" max="210" value="150">
+                </label>
+                <p class="readout" id="pinReadout"></p>
+            </div>
+
+            <div class="tab-panel" id="cam-teoria">
+                <div class="info-card">
+                    <h3>O princípio</h3>
+                    <p>A luz se propaga em linha reta (propagação retilínea). Cada ponto do objeto envia raios em todas as direções, mas só os que passam pelo furo chegam ao anteparo.</p>
+                    <h3>Por que a imagem é invertida?</h3>
+                    <p>Os raios que vêm de cima passam pelo furo e chegam embaixo, e os de baixo chegam em cima. Por isso a imagem fica de cabeça para baixo.</p>
+                    <h3>Furo pequeno × grande</h3>
+                    <p>Furo pequeno: imagem nítida, porém escura. Furo grande: entra mais luz, porém cada ponto vira uma mancha e a imagem fica borrada. As lentes das câmeras resolvem esse problema: captam muita luz e ainda focalizam.</p>
+                    <h3>Tamanho da imagem</h3>
+                    <p>A razão entre a altura da imagem e a do objeto é igual à razão entre a profundidade da câmara e a distância do objeto (semelhança de triângulos).</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= LUZ E CORES ================= -->
+    <section id="light" class="screen">
+        <button class="back" data-go="home">‹ Início</button>
+        <h2>🌈 Luz e Cores</h2>
+
+        <div class="tabbed">
+            <div class="tabs">
+                <button class="active" data-tab="light-spec">Espectro</button>
+                <button data-tab="light-rgb">Mistura RGB</button>
+                <button data-tab="light-obj">Luz × objeto</button>
+            </div>
+
+            <div class="tab-panel active" id="light-spec">
+                <div class="info-card">
+                    <div class="swatch" id="waveSwatch"></div>
+                    <p class="readout" id="waveText"></p>
+                    <label class="slider">
+                        <span>Comprimento de onda <b id="waveVal"></b></span>
+                        <input type="range" id="waveRange" min="380" max="750" value="550">
+                    </label>
+                    <h3>Resposta dos cones da retina</h3>
+                    <div class="bars">
+                        <div class="bar"><span>Cone S (azul)</span><div><i class="s" id="coneS"></i></div></div>
+                        <div class="bar"><span>Cone M (verde)</span><div><i class="m" id="coneM"></i></div></div>
+                        <div class="bar"><span>Cone L (vermelho)</span><div><i class="l" id="coneL"></i></div></div>
+                    </div>
+                    <p class="note">Curvas simplificadas, só para fins didáticos. O cérebro compara os três sinais para formar a cor percebida.</p>
+                </div>
+            </div>
+
+            <div class="tab-panel" id="light-rgb">
+                <div class="info-card">
+                    <div class="swatch" id="mixSwatch"></div>
+                    <p class="readout" id="mixText"></p>
+                    <label class="slider"><span>Vermelho <b id="rRv"></b></span><input type="range" id="rR" min="0" max="255" value="255"></label>
+                    <label class="slider"><span>Verde <b id="rGv"></b></span><input type="range" id="rG" min="0" max="255" value="140"></label>
+                    <label class="slider"><span>Azul <b id="rBv"></b></span><input type="range" id="rB" min="0" max="255" value="0"></label>
+                    <p class="note">Telas e sensores usam síntese aditiva: vermelho + verde + azul no máximo formam o branco. Impressoras usam a subtrativa (ciano, magenta e amarelo).</p>
+                </div>
+            </div>
+
+            <div class="tab-panel" id="light-obj">
+                <div class="info-card">
+                    <h3>Cor da luz</h3>
+                    <div class="chips" id="lightPick">
+                        <button class="chip active" data-light="branca">Branca</button>
+                        <button class="chip" data-light="vermelha">Vermelha</button>
+                        <button class="chip" data-light="verde">Verde</button>
+                        <button class="chip" data-light="azul">Azul</button>
+                    </div>
+                    <h3>Cor do objeto</h3>
+                    <div class="chips" id="objPick">
+                        <button class="chip active" data-obj="vermelho">Vermelho</button>
+                        <button class="chip" data-obj="verde">Verde</button>
+                        <button class="chip" data-obj="azul">Azul</button>
+                        <button class="chip" data-obj="branco">Branco</button>
+                    </div>
+                    <div class="swatch" id="objSwatch"></div>
+                    <p class="readout" id="objText"></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= OLHO × CÂMERA ================= -->
+    <section id="compare" class="screen">
+        <button class="back" data-go="home">‹ Início</button>
+        <h2>⚖️ Olho × Câmera</h2>
+
+        <div class="tabbed">
+            <div class="tabs">
+                <button class="active" data-tab="cmp-eye">Olho</button>
+                <button data-tab="cmp-analog">Analógica</button>
+                <button data-tab="cmp-digital">Digital</button>
+                <button data-tab="cmp-table">Lado a lado</button>
+            </div>
+
+            <div class="tab-panel active" id="cmp-eye">
+                <div class="info-card">
+                    <h3>O caminho da luz no olho</h3>
+                    <ol class="flow">
+                        <li>A luz atravessa a <b>córnea</b>, que faz a maior parte da refração.</li>
+                        <li>A <b>pupila</b> regula quanta luz entra (controlada pela íris).</li>
+                        <li>O <b>cristalino</b> ajusta o foco.</li>
+                        <li>A imagem se forma <b>invertida</b> na <b>retina</b>.</li>
+                        <li>Cones e bastonetes transformam luz em impulsos nervosos.</li>
+                        <li>O <b>nervo óptico</b> leva os sinais ao cérebro, que interpreta a imagem.</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="tab-panel" id="cmp-analog">
+                <div class="info-card">
+                    <h3>O caminho da luz na câmera analógica</h3>
+                    <ol class="flow">
+                        <li>A luz passa pela <b>lente</b> (objetiva).</li>
+                        <li>O <b>diafragma</b> controla a abertura e o <b>obturador</b>, o tempo de exposição.</li>
+                        <li>Os cristais de <b>haletos de prata</b> do filme são sensibilizados (imagem latente).</li>
+                        <li>A <b>revelação</b> química reduz Ag⁺ a prata metálica nos pontos expostos.</li>
+                        <li>O <b>fixador</b> remove o haleto não exposto e o negativo fica estável.</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="tab-panel" id="cmp-digital">
+                <div class="info-card">
+                    <h3>O caminho da luz na câmera digital</h3>
+                    <ol class="flow">
+                        <li>A luz passa pela <b>lente</b> e pelo <b>diafragma</b>.</li>
+                        <li>Um <b>filtro de cores</b> separa vermelho, verde e azul sobre os pixels.</li>
+                        <li>O <b>sensor</b> de silício (CMOS/CCD) converte fótons em carga elétrica.</li>
+                        <li>O conversor transforma a carga em números (dados digitais).</li>
+                        <li>O <b>processador</b> monta a imagem e grava no cartão de memória.</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="tab-panel" id="cmp-table">
+                <div class="info-card">
+                    <table class="compare-table">
+                        <tr><th>Olho</th><th>Analógica</th><th>Digital</th></tr>
+                        <tr><td>Pupila / íris</td><td>Diafragma</td><td>Diafragma</td></tr>
+                        <tr><td>Córnea e cristalino</td><td>Objetiva</td><td>Objetiva</td></tr>
+                        <tr><td>Retina</td><td>Filme</td><td>Sensor</td></tr>
+                        <tr><td>Reações bioquímicas</td><td>Reações químicas (prata)</td><td>Efeito fotoelétrico (silício)</td></tr>
+                        <tr><td>Cérebro</td><td>Laboratório</td><td>Processador</td></tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= DOENÇAS VISUAIS ================= -->
+    <section id="diseases" class="screen">
+        <button class="back" data-go="home">‹ Início</button>
+        <h2>🩺 Doenças Visuais</h2>
+        <p class="lead">Configure cada olho separadamente e veja como as diferenças podem alterar a percepção visual.</p>
+
+        <div class="vision-eyes-grid">
+            <article class="vision-eye-card" data-eye="left">
+                <div class="vision-eye-head">
+                    <div>
+                        <span class="eye-kicker">ENTRADA VISUAL</span>
+                        <h3>👁️ Olho esquerdo</h3>
+                    </div>
+                    <span class="eye-status-badge" id="leftStatus">Normal</span>
+                </div>
+
+                <label class="vision-field">
+                    <span>Condição</span>
+                    <select id="leftDisease">
+                        <option value="normal">Visão normal</option>
+                        <option value="miopia">Miopia</option>
+                        <option value="hipermetropia">Hipermetropia</option>
+                        <option value="astigmatismo">Astigmatismo</option>
+                        <option value="catarata">Catarata</option>
+                        <option value="glaucoma">Glaucoma</option>
+                        <option value="daltonismo">Daltonismo</option>
+                    </select>
+                </label>
+
+                <div class="vision-prescription-grid">
+                    <label class="vision-field refractive-field">
+                        <span>Grau / esférico <b id="leftDegreeVal">0,00 D</b></span>
+                        <input id="leftDegree" type="range" min="-12" max="6" step="0.25" value="0">
+                    </label>
+                    <label class="vision-field cylinder-field">
+                        <span>Cilindro <b id="leftCylinderVal">0,00 D</b></span>
+                        <input id="leftCylinder" type="range" min="-6" max="0" step="0.25" value="0">
+                    </label>
+                </div>
+
+                <label class="vision-field axis-field">
+                    <span>Eixo <b id="leftAxisVal">0°</b></span>
+                    <input id="leftAxis" type="range" min="0" max="180" step="1" value="0">
+                </label>
+
+                <div class="vision-mini-scene" id="leftVisionScene">
+                    <div class="vision-scene-content">
+                        <div class="mini-sky"></div>
+                        <div class="mini-mountain"></div>
+                        <div class="mini-ground"></div>
+                        <div class="mini-house"><i></i><i></i><i></i></div>
+                        <div class="mini-tree"><i></i><b></b></div>
+                    </div>
+                </div>
+
+                <p class="vision-reading" id="leftReading">Visão nítida e cores preservadas.</p>
+            </article>
+
+            <article class="vision-eye-card" data-eye="right">
+                <div class="vision-eye-head">
+                    <div>
+                        <span class="eye-kicker">ENTRADA VISUAL</span>
+                        <h3>👁️ Olho direito</h3>
+                    </div>
+                    <span class="eye-status-badge" id="rightStatus">Normal</span>
+                </div>
+
+                <label class="vision-field">
+                    <span>Condição</span>
+                    <select id="rightDisease">
+                        <option value="normal">Visão normal</option>
+                        <option value="miopia">Miopia</option>
+                        <option value="hipermetropia">Hipermetropia</option>
+                        <option value="astigmatismo">Astigmatismo</option>
+                        <option value="catarata">Catarata</option>
+                        <option value="glaucoma">Glaucoma</option>
+                        <option value="daltonismo">Daltonismo</option>
+                    </select>
+                </label>
+
+                <div class="vision-prescription-grid">
+                    <label class="vision-field refractive-field">
+                        <span>Grau / esférico <b id="rightDegreeVal">0,00 D</b></span>
+                        <input id="rightDegree" type="range" min="-12" max="6" step="0.25" value="0">
+                    </label>
+                    <label class="vision-field cylinder-field">
+                        <span>Cilindro <b id="rightCylinderVal">0,00 D</b></span>
+                        <input id="rightCylinder" type="range" min="-6" max="0" step="0.25" value="0">
+                    </label>
+                </div>
+
+                <label class="vision-field axis-field">
+                    <span>Eixo <b id="rightAxisVal">0°</b></span>
+                    <input id="rightAxis" type="range" min="0" max="180" step="1" value="0">
+                </label>
+
+                <div class="vision-mini-scene" id="rightVisionScene">
+                    <div class="vision-scene-content">
+                        <div class="mini-sky"></div>
+                        <div class="mini-mountain"></div>
+                        <div class="mini-ground"></div>
+                        <div class="mini-house"><i></i><i></i><i></i></div>
+                        <div class="mini-tree"><i></i><b></b></div>
+                    </div>
+                </div>
+
+                <p class="vision-reading" id="rightReading">Visão nítida e cores preservadas.</p>
+            </article>
+        </div>
+
+        <div class="vision-comparison-card">
+            <span class="info-label">COMPARAÇÃO BINOCULAR</span>
+            <h3 id="visionComparisonTitle">Os dois olhos estão em condições semelhantes</h3>
+            <p id="visionComparisonText">As duas entradas visuais apresentam pouca diferença nesta simulação.</p>
+        </div>
+
+        <div class="fusion-entry">
+            <button class="fusion-button" data-go="binocular">
+                <span class="fusion-icon">🧠</span>
+                <span class="fusion-button-text">
+                    <strong>Visão Fundida</strong>
+                    <small>Veja como os dois olhos trabalham juntos em uma visualização 3D</small>
+                </span>
+                <span class="fusion-arrow">›</span>
+            </button>
+        </div>
+
+        <div class="info-card vision-note-card">
+            <span class="info-label">NOTA EDUCATIVA</span>
+            <p>Os valores em dioptrias representam uma simulação didática. Catarata, glaucoma e daltonismo não são definidos por “grau” da mesma forma que miopia, hipermetropia e astigmatismo.</p>
+        </div>
+    </section>
+
+    <!-- ================= VISÃO FUNDIDA ================= -->
+    <section id="binocular" class="screen">
+        <button class="back" data-go="diseases">‹ Doenças Visuais</button>
+        <div class="fusion-header">
+            <span class="section-tag">BIOLOGIA • FÍSICA</span>
+            <h2>🧠 Visão Fundida</h2>
+            <p class="lead">Uma visualização 3D/2,5D educativa de como duas entradas visuais podem ser combinadas em uma única percepção.</p>
+        </div>
+
+        <div class="fusion-eyes-status">
+            <div class="fusion-eye-status"><span class="eye-dot left-dot"></span><div><small>OLHO ESQUERDO</small><strong id="binocularLeftStatus">Visão normal</strong></div></div>
+            <div class="fusion-eye-status"><span class="eye-dot right-dot"></span><div><small>OLHO DIREITO</small><strong id="binocularRightStatus">Visão normal</strong></div></div>
+        </div>
+
+        <div class="binocular-view">
+            <div class="depth-label depth-back">IMAGEM DISTANTE</div>
+            <div class="depth-label depth-front">PROFUNDIDADE</div>
+            <div class="binocular-stage">
+                <div class="binocular-layer binocular-left" id="binocularLeft">
+                    <div class="binocular-scene">
+                        <div class="sky"></div><div class="mountain mountain-back"></div><div class="mountain mountain-front"></div><div class="ground"></div>
+                        <div class="tree tree-one"><div class="tree-top"></div><div class="tree-trunk"></div></div>
+                        <div class="tree tree-two"><div class="tree-top"></div><div class="tree-trunk"></div></div>
+                        <div class="building"><div class="building-window"></div><div class="building-window"></div><div class="building-window"></div></div>
+                    </div>
+                </div>
+                <div class="binocular-layer binocular-right" id="binocularRight">
+                    <div class="binocular-scene">
+                        <div class="sky"></div><div class="mountain mountain-back"></div><div class="mountain mountain-front"></div><div class="ground"></div>
+                        <div class="tree tree-one"><div class="tree-top"></div><div class="tree-trunk"></div></div>
+                        <div class="tree tree-two"><div class="tree-top"></div><div class="tree-trunk"></div></div>
+                        <div class="building"><div class="building-window"></div><div class="building-window"></div><div class="building-window"></div></div>
+                    </div>
+                </div>
+                <div class="binocular-fused" id="binocularFused">
+                    <div class="fused-scene">
+                        <div class="fused-sky"></div><div class="fused-mountain"></div><div class="fused-ground"></div>
+                        <div class="fused-building"><span></span><span></span><span></span></div>
+                        <div class="fused-tree"><div></div><span></span></div>
+                    </div>
+                </div>
+                <div class="fixation-point"><span></span></div>
+            </div>
+            <div class="fusion-axis"><span>← OLHO ESQUERDO</span><div class="fusion-axis-line"><i></i></div><span>OLHO DIREITO →</span></div>
+        </div>
+
+        <div class="fusion-info-card">
+            <span class="info-label">COMO O CÉREBRO COMBINA AS IMAGENS</span>
+            <h3>Uma única percepção visual</h3>
+            <p id="binocularDepthText">Os dois olhos estão recebendo imagens semelhantes. O cérebro pode comparar pequenas diferenças entre elas para contribuir para a percepção de profundidade.</p>
+        </div>
+
+        <div class="fusion-legend">
+            <div><span class="legend-dot left"></span><small>Entrada esquerda</small></div>
+            <div><span class="legend-dot right"></span><small>Entrada direita</small></div>
+            <div><span class="legend-dot fused"></span><small>Imagem fundida</small></div>
+        </div>
+    </section>
+
+    <!-- ================= QUÍMICA ================= -->
+    <section id="chemistry" class="screen">
+        <button class="back" data-go="home">‹ Início</button>
+        <h2>⚗️ Química e Materiais</h2>
+
+        <div class="tabbed">
+            <div class="tabs">
+                <button class="active" data-tab="chem-el">Elementos</button>
+                <button data-tab="chem-re">Reações</button>
+            </div>
+
+            <div class="tab-panel active" id="chem-el">
+                <div class="tiles">
+                    <button class="tile" data-el="Ag"><small>47</small><b>Ag</b><span>Prata</span></button>
+                    <button class="tile" data-el="Si"><small>14</small><b>Si</b><span>Silício</span></button>
+                    <button class="tile" data-el="Li"><small>3</small><b>Li</b><span>Lítio</span></button>
+                    <button class="tile" data-el="Cu"><small>29</small><b>Cu</b><span>Cobre</span></button>
+                    <button class="tile" data-el="Au"><small>79</small><b>Au</b><span>Ouro</span></button>
+                    <button class="tile" data-el="Pb"><small>82</small><b>Pb</b><span>Chumbo</span></button>
+                </div>
+                <div class="info-card" id="elInfo"><p>Toque em um elemento para ver onde ele aparece e como descartar com segurança.</p></div>
+            </div>
+
+            <div class="tab-panel" id="chem-re">
+                <details class="acc" open>
+                    <summary>Exposição do filme</summary>
+                    <div class="body"><p>Os cristais de brometo de prata (AgBr) absorvem luz e liberam elétrons: Ag⁺ + e⁻ → Ag⁰. Os pequenos grupos de prata formam a <b>imagem latente</b>, ainda invisível.</p></div>
+                </details>
+                <details class="acc">
+                    <summary>Revelação</summary>
+                    <div class="body"><p>O revelador é um agente redutor. Ele reduz os cristais que já têm prata latente a prata metálica (preta), amplificando a imagem. É uma reação de oxirredução.</p></div>
+                </details>
+                <details class="acc">
+                    <summary>Fixação</summary>
+                    <div class="body"><p>O fixador (tiossulfato de sódio, Na₂S₂O₃) dissolve o AgBr que não foi exposto, formando um complexo solúvel. Assim o filme deixa de ser sensível à luz.</p></div>
+                </details>
+                <details class="acc">
+                    <summary>Sensor digital</summary>
+                    <div class="body"><p>No silício, um fóton com energia suficiente (acima de cerca de 1,1 eV) liberta um elétron e cria uma lacuna. A carga acumulada em cada pixel é medida e vira o valor do pixel (efeito fotoelétrico interno).</p></div>
+                </details>
+                <details class="acc">
+                    <summary>Bateria de íons de lítio</summary>
+                    <div class="body"><p>Ao carregar e descarregar, íons Li⁺ migram entre os eletrodos enquanto os elétrons passam pelo circuito externo. Baterias danificadas ou descartadas de forma errada podem aquecer e pegar fogo.</p></div>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= SUSTENTABILIDADE ================= -->
+    <section id="sustainability" class="screen">
+        <button class="back" data-go="home">‹ Início</button>
+        <h2>🌱 Sustentabilidade</h2>
+
+        <div class="tabbed">
+            <div class="tabs">
+                <button class="active" data-tab="sus-check">Checklist</button>
+                <button data-tab="sus-where">Para onde vai?</button>
+                <button data-tab="sus-impact">Impactos</button>
+            </div>
+
+            <div class="tab-panel active" id="sus-check">
+                <div class="info-card">
+                    <h3>Vai se desfazer de um aparelho?</h3>
+                    <p class="readout" id="todoText">0 de 5 passos concluídos</p>
+                    <div class="progress"><i id="todoBar"></i></div>
+                    <label class="todo"><input type="checkbox"><span>Fazer backup e apagar seus dados pessoais.</span></label>
+                    <label class="todo"><input type="checkbox"><span>Ver se o aparelho pode ser consertado, doado ou reaproveitado.</span></label>
+                    <label class="todo"><input type="checkbox"><span>Separar pilhas e baterias dos demais componentes.</span></label>
+                    <label class="todo"><input type="checkbox"><span>Procurar um ponto de coleta ou a logística reversa do fabricante.</span></label>
+                    <label class="todo"><input type="checkbox"><span>Nunca jogar no lixo comum, no esgoto ou em terrenos.</span></label>
+                </div>
+            </div>
+
+            <div class="tab-panel" id="sus-where">
+                <details class="acc" open><summary>📱 Celulares e computadores</summary><div class="body"><p>Pontos de coleta de eletrônicos, lojas e fabricantes com logística reversa, ou cooperativas de reciclagem.</p></div></details>
+                <details class="acc"><summary>🔋 Pilhas e baterias</summary><div class="body"><p>Pontos de coleta específicos, geralmente em lojas e supermercados. Nunca no lixo comum.</p></div></details>
+                <details class="acc"><summary>💡 Lâmpadas fluorescentes</summary><div class="body"><p>Contêm vapor de mercúrio e precisam de coleta específica, sem quebrar.</p></div></details>
+                <details class="acc"><summary>🎞️ Químicos de revelação</summary><div class="body"><p>Reveladores e fixadores contêm substâncias que não devem ir para o esgoto. Procure coleta especializada de resíduos químicos.</p></div></details>
+            </div>
+
+            <div class="tab-panel" id="sus-impact">
+                <div class="info-card">
+                    <h3>Contaminação</h3>
+                    <p>Metais como chumbo, mercúrio e cádmio podem contaminar solo e água quando eletrônicos são descartados de forma incorreta.</p>
+                    <h3>Bioacumulação</h3>
+                    <p>Alguns metais se acumulam nos seres vivos e aumentam de concentração ao longo da cadeia alimentar, afetando animais e pessoas.</p>
+                    <h3>Recuperar é melhor</h3>
+                    <p>Reciclar recupera metais valiosos (como cobre, prata e ouro) e reduz a necessidade de nova mineração. Isso também poupa energia.</p>
+                    <h3>A lei</h3>
+                    <p>A Política Nacional de Resíduos Sólidos (Lei 12.305/2010) prevê a <b>logística reversa</b>: fabricantes, comerciantes e consumidores compartilham a responsabilidade pelo destino dos produtos.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= LINHA DO TEMPO ================= -->
+    <section id="timeline" class="screen">
+        <button class="back" data-go="home">‹ Início</button>
+        <h2>🕒 Evolução da Imagem</h2>
+        <p class="lead">Toque em cada marco para abrir.</p>
+
+        <details class="acc" open>
+            <summary><span><span class="year">~1021</span>Câmara escura estudada</span></summary>
+            <div class="body"><p>O cientista Ibn al-Haytham (Alhazen) descreveu e estudou a câmara escura em seu Livro de Óptica, explicando a formação de imagens pela propagação retilínea da luz.</p></div>
+        </details>
+        <details class="acc">
+            <summary><span><span class="year">~1826</span>Primeira fotografia permanente</span></summary>
+            <div class="body"><p>Nicéphore Niépce registrou uma imagem que se manteve, usando uma câmara escura e uma placa sensível à luz, com longa exposição.</p></div>
+        </details>
+        <details class="acc">
+            <summary><span><span class="year">1839</span>Daguerreótipo</span></summary>
+            <div class="body"><p>Louis Daguerre apresentou seu processo, que reduziu o tempo de exposição e popularizou a fotografia.</p></div>
+        </details>
+        <details class="acc">
+            <summary><span><span class="year">1888</span>Filme em rolo</span></summary>
+            <div class="body"><p>George Eastman lançou a câmera Kodak com filme em rolo, tornando a fotografia acessível ao público.</p></div>
+        </details>
+        <details class="acc">
+            <summary><span><span class="year">1975</span>Primeira câmera digital</span></summary>
+            <div class="body"><p>Steven Sasson, engenheiro da Kodak, construiu um protótipo de câmera digital com sensor CCD.</p></div>
+        </details>
+        <details class="acc">
+            <summary><span><span class="year">2000+</span>Câmera no celular</span></summary>
+            <div class="body"><p>Os primeiros celulares com câmera chegaram ao mercado por volta de 2000. Hoje, sensores, lentes e processamento por software cabem em um aparelho de bolso.</p></div>
+        </details>
+    </section>
+
+    <!-- ================= VISION QUIZ ================= -->
+    <section id="quiz" class="screen">
+        <button class="back" data-go="home">‹ Início</button>
+        <h2>🎮 VISION quiz</h2>
+        <div id="quizContainer"></div>
+    </section>
+
+    <!-- ================= EQUIPE ================= -->
+    <section id="team" class="screen">
+        <button class="back" data-go="home">‹ Início</button>
+        <h2>👥 Equipe</h2>
+
+        <div class="info-card">
+            <h3>Alunos</h3>
+            <ul class="people">
+                <li>Adriel Renan</li>
+                <li>Erick Gabriel</li>
+                <li>João Matheus</li>
+                <li>Davi Antony</li>
+                <li>Eduardo Dias</li>
+                <li>Laura Mariana</li>
+                <li>Carlos Henrique</li>
+                <li>Geovanni Souza</li>
+                <li>Carlos Manoel</li>
+            </ul> 
+
+            <h3>Professores</h3>
+            <ul class="people">
+                <li>Fátima Rodrigues</li>
+                <li>Fernanda Souza <small>(Conselheira)</small></li>
+                <li>Kayo Vinicius <small>(CESAR SCHOOL)</small></li>
+                <li>José Noé</li>
+                <li>Alberi Lopes</li>
+                <li>Camila Silva</li>
+            </ul>
+
+            <div class="school">
+                <strong>EREM Padre Nércio Rodrigues</strong>
+                <span>2ºA • Projeto Sou Cientista</span>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<!-- NAVEGAÇÃO -->
+<nav class="bottom-nav">
+    <button data-go="home"><span>🏠</span><small>Início</small></button>
+    <button data-go="eye"><span>👁️</span><small>Olho</small></button>
+    <button data-go="quiz"><span>🎮</span><small>VISION quiz</small></button>
+    <button data-go="team"><span>👥</span><small>Equipe</small></button>
+</nav>
+
+<script src="js/questions.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
