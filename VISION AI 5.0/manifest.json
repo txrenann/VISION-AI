@@ -1,7 +1,7 @@
 {
-  "name": "VISION — Projeto Sou Cientista",
+  "name": "VISION AI",
   "short_name": "VISION",
-  "description": "Aplicativo educativo sobre visão, óptica, câmeras, química e sustentabilidade.",
+  "description": "O mundo por outros olhos.",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
@@ -11,13 +11,7 @@
   "lang": "pt-BR",
   "icons": [
     {
-      "src": "assets/icons/icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "assets/icons/icon-512.png",
+      "src": "assets/icons/icon.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
