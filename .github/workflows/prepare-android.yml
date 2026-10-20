@@ -1,0 +1,35 @@
+
+name: Prepare VISION Android
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download VISION source
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: package-lock.json
+
+      - name: Verify source files
+        run: |
+          test -f index.html
+          test -f manifest.json
+          test -d css
+          test -d js
+
+      - name: Report source structure
+        run: |
+          echo "VISION source files found."
+          find css js -maxdepth 2 -type f
