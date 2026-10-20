@@ -1,35 +1,82 @@
 
-name: Prepare VISION Android
+name: Build VISION APK
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - main
 
 permissions:
   contents: read
 
 jobs:
-  prepare:
+  build:
     runs-on: ubuntu-latest
+    timeout-minutes: 35
 
     steps:
-      - name: Download VISION source
+      - name: Checkout VISION
         uses: actions/checkout@v4
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: npm
-          cache-dependency-path: package-lock.json
-
-      - name: Verify source files
+      - name: Verify web files
         run: |
           test -f index.html
           test -f manifest.json
-          test -d css
-          test -d js
+          test -f css/style.css
+          test -f js/app.js
+          test -f js/questions.js
 
-      - name: Report source structure
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Create Capacitor project
         run: |
-          echo "VISION source files found."
-          find css js -maxdepth 2 -type f
+          mkdir -p www
+          cp index.html www/
+          cp manifest.json www/
+          cp service-worker.js www/
+          cp -r css js assets www/ 2>/dev/null || true
+          npm init -y
+          npm install @capacitor/core@^7 @capacitor/android@^7
+          npm install --save-dev @capacitor/cli@^7
+
+      - name: Configure Capacitor
+        run: |
+          cat > capacitor.config.json <<'EOF'
+          {
+            "appId": "br.com.vision.soucientista",
+            "appName": "VISION",
+            "webDir": "www"
+          }
+          EOF
+
+      - name: Generate Android project
+        run: |
+          npx cap add android
+          npx cap sync android
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
+
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Build debug APK
+        working-directory: android
+        run: |
+          chmod +x gradlew
+          ./gradlew assembleDebug
+
+      - name: Upload VISION APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: VISION-APK
+          path: android/app/build/outputs/apk/debug/app-debug.apk
+          if-no-files-found: error
+          retention-days: 7
