@@ -1,0 +1,1605 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#07080d">
+    <meta name="description" content="VISION — Ciência, Tecnologia e Sustentabilidade">
+    <title>VISION.AI</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" href="assets/icons/Icon.png">
+    <link rel="apple-touch-icon" href="assets/icons/Icon.png">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- Filtros SVG usados no simulador de doenças -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+        <filter id="astig"><feGaussianBlur id="astigStd" stdDeviation="5 0.3"/></filter>
+        <filter id="deutan"><feColorMatrix type="matrix" values="0.625 0.375 0 0 0  0.7 0.3 0 0 0  0 0.3 0.7 0 0  0 0 0 1 0"/></filter>
+    </defs>
+</svg>
+
+
+
+<!-- SPLASH SCREEN -->
+<div id="splash">
+    <div class="splash-logo">
+        <img src="./assets/icons/eye.png" alt=""> 
+        <h1>VISION.AI</h1>
+        <p>Ciência • Tecnologia • Sustentabilidade</p>
+    </div>
+</div>
+
+
+<main class="app">
+    <!-- ================= HOME ================= -->
+    <section id="home" class="screen active">
+        <header class="hero">
+            <img src="./assets/icons/eye.png" alt=""> 
+            <h1>VISION.AI</h1>
+            <p>Da Câmara Escura às Câmeras Modernas</p>
+            <small>Projeto Sou Cientista • EREM Padre Nércio Rodrigues • 2ºA</small>
+        </header>
+
+        <div class="chips" id="homeFilter">
+            <button class="chip active" data-filter="all">Tudo</button>
+            <button class="chip" data-filter="fisica">Física</button>
+            <button class="chip" data-filter="quimica">Química</button>
+            <button class="chip" data-filter="biologia">Biologia</button>
+        </div>
+
+        <div class="cards">
+            <button class="card" data-go="eye" data-subjects="biologia fisica">
+                <span class="card-icon">👁️</span><b>Olho Humano</b><small>Explore o olho por dentro.</small>
+                <em class="tags"><i>Biologia</i><i>Física</i></em>
+            </button>
+            <button class="card" data-go="camera" data-subjects="fisica">
+                <span class="card-icon">📦</span><b>Câmara Escura</b><small>Simulador de imagem.</small>
+                <em class="tags"><i>Física</i></em>
+            </button>
+            
+            <button class="card" data-go="camera-anatomy" data-subjects="fisica">
+                <span class="card-icon">📸</span>
+                <b>Anatomia da Câmera</b>
+                <small>Explore as peças por dentro e por fora.</small>
+                <em class="tags"><i>Física</i></em>
+            </button>
+
+            <button class="card" data-go="light" data-subjects="fisica biologia">
+                <span class="card-icon">🌈</span><b>Luz e Cores</b><small>Espectro, cones e RGB.</small>
+                <em class="tags"><i>Física</i></em>
+            </button>
+            <button class="card" data-go="compare" data-subjects="fisica biologia quimica">
+                <span class="card-icon">⚖️</span><b>Olho × Câmera</b><small>Analógica e digital.</small>
+                <em class="tags"><i>Física</i><i>Química</i><i>Biologia</i></em>
+            </button>
+            <button class="card" data-go="diseases" data-subjects="biologia fisica">
+                <span class="card-icon">🩺</span><b>Doenças Visuais</b><small>Simule como se enxerga.</small>
+                <em class="tags"><i>Biologia</i><i>Física</i></em>
+            </button>
+            <button class="card" data-go="chemistry" data-subjects="quimica biologia">
+                <span class="card-icon">👓</span>
+                <b>Química e Sustentabilidade</b>
+                <small>Lentes, reaproveitamento, saúde visual e impactos sociais.</small>
+                <em class="tags"><i>Química</i><i>Biologia</i></em>
+            </button>
+
+            <button class="card" data-go="timeline" data-subjects="fisica">
+                <span class="card-icon">🕒</span><b>Linha do Tempo</b><small>Da câmara ao celular.</small>
+                <em class="tags"><i>Física</i></em>
+            </button>
+            <button class="card" data-go="quiz" data-subjects="fisica quimica biologia">
+                <span class="card-icon">🎮</span><b>VISION quiz</b><small>Teste seus conhecimentos.</small>
+                <em class="tags"><i>Todas</i></em>
+            </button>
+            <button class="card" data-go="team" data-subjects="fisica quimica biologia">
+                <span class="card-icon">👥</span><b>Equipe</b><small>Alunos e professores.</small>
+                <em class="tags"><i>Projeto</i></em>
+            </button>
+        </div>
+    </section>
+
+    <!-- ================= OLHO ================= -->
+    <section id="eye" class="screen">
+        <button class="back" data-go="home">‹ Início</button>
+        <h2>👁️ Olho Humano</h2>
+        <p class="lead">Alterne entre o corte de perfil e a vista de frente. Toque nas estruturas e mexa na luz para ver a pupila mudar.</p>
+
+
+        <div class="tabbed">
+            <div class="tabs">
+                <button class="active" data-tab="eye-side">Perfil</button>
+                <button data-tab="eye-front">Frente</button>
+            </div>
+
+            <div class="tab-panel active" id="eye-side">
+        <div class="stage">
+            <svg id="eyeSvg" viewBox="0 0 520 300" role="img" aria-label="Corte lateral do olho humano com raios de luz">
+                <defs>
+                    <radialGradient id="gSclera" cx="40%" cy="35%" r="75%">
+                        <stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#c9d3ea"/>
+                    </radialGradient>
+                    <radialGradient id="gVit" cx="35%" cy="40%" r="75%">
+                        <stop offset="0" stop-color="#e8f3ff"/><stop offset="1" stop-color="#9cc3ff"/>
+                    </radialGradient>
+                    <linearGradient id="gIris" x1="0" y1="0" x2="1" y2="1">
+                        <stop offset="0" stop-color="#46d7c6"/><stop offset="1" stop-color="#2c6fd6"/>
+                    </linearGradient>
+                    <radialGradient id="gLens" cx="50%" cy="50%" r="60%">
+                        <stop offset="0" stop-color="#fff3c4" stop-opacity=".95"/>
+                        <stop offset="1" stop-color="#ffd479" stop-opacity=".7"/>
+                    </radialGradient>
+                </defs>
+
+                <!-- nervo óptico (atrás da esclera) -->
+                <path class="eye-part" data-part="nervo" d="M428 172 L500 198" fill="none" stroke="#f2c46d" stroke-width="18" stroke-linecap="round"/>
+
+                <!-- esclera e humor vítreo -->
+                <circle cx="310" cy="150" r="122" fill="url(#gSclera)" stroke="#8fa3cf" stroke-width="2"/>
+                <circle class="eye-part" data-part="vitreo" cx="310" cy="150" r="114" fill="url(#gVit)"/>
+
+                <!-- retina e fóvea -->
+                <path class="eye-part" data-part="retina" d="M367 51.3 A114 114 0 0 1 367 248.7" fill="none" stroke="#ff6b86" stroke-width="7" stroke-linecap="round"/>
+                <circle class="eye-part" data-part="fovea" cx="421" cy="150" r="6" fill="#ffca55" stroke="#ffffff" stroke-width="1.5"/>
+
+                <!-- músculos ciliares -->
+                <ellipse cx="250" cy="99" rx="9" ry="12" fill="#e59a6c"/>
+                <ellipse cx="250" cy="201" rx="9" ry="12" fill="#e59a6c"/>
+
+                <!-- cristalino -->
+                <ellipse class="eye-part" data-part="cristalino" cx="252" cy="150" rx="17" ry="46" fill="url(#gLens)" stroke="#ffbe3d" stroke-width="2"/>
+
+                <!-- íris e pupila -->
+                <rect id="irisTop" class="eye-part" data-part="iris" x="215" y="84" width="12" height="58" rx="4" fill="url(#gIris)"/>
+                <rect id="irisBot" class="eye-part" data-part="iris" x="215" y="158" width="12" height="58" rx="4" fill="url(#gIris)"/>
+                <rect id="pupilHit" class="eye-part" data-part="pupila" x="212" y="142" width="18" height="16" fill="transparent"/>
+
+                <!-- córnea -->
+                <path class="eye-part" data-part="cornea" d="M210 88 Q146 150 210 212 Z" fill="rgba(140,200,255,.35)" stroke="#8fd0ff" stroke-width="3" stroke-linejoin="round"/>
+
+                <!-- raios de luz -->
+                <g id="rays"></g>
+
+                <!-- rótulos -->
+                <g class="lbl">
+                    <text x="24" y="98" style="text-anchor:start">Luz ➜</text>
+                    <text x="150" y="76">Córnea</text>
+                    <text x="222" y="58">Íris</text>
+                    <text x="252" y="272">Cristalino</text>
+                    <text x="400" y="38">Retina</text>
+                    <text x="468" y="238">Nervo óptico</text>
+                </g>
+            </svg>
+        </div>
+            </div>
+
+            <div class="tab-panel" id="eye-front">
+                <div class="stage">
+                    <svg id="eyeFrontSvg" viewBox="0 0 400 360" role="img" aria-label="Olho humano visto de frente">
+                        <defs>
+                            <radialGradient id="gFrontSkin" cx="50%" cy="40%" r="70%">
+                                <stop offset="0" stop-color="#e8c4a8"/><stop offset="1" stop-color="#c99678"/>
+                            </radialGradient>
+                            <radialGradient id="gFrontSclera" cx="38%" cy="32%" r="70%">
+                                <stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#d5deef"/>
+                            </radialGradient>
+                            <radialGradient id="gFrontIris" cx="42%" cy="38%" r="62%">
+                                <stop offset="0" stop-color="#7ee8dc"/>
+                                <stop offset=".35" stop-color="#2c6fd6"/>
+                                <stop offset=".78" stop-color="#1a3f8a"/>
+                                <stop offset="1" stop-color="#0c2248"/>
+                            </radialGradient>
+                            <radialGradient id="gFrontPupil" cx="42%" cy="38%" r="70%">
+                                <stop offset="0" stop-color="#2a3148"/><stop offset="1" stop-color="#05060a"/>
+                            </radialGradient>
+                            <clipPath id="frontFissure">
+                                <path d="M28 180 C 90 108, 310 108, 372 180 C 310 252, 90 252, 28 180 Z"/>
+                            </clipPath>
+                            <clipPath id="frontIrisClip">
+                                <circle cx="200" cy="180" r="78"/>
+                            </clipPath>
+                        </defs>
+
+                        <!-- pele ao redor -->
+                        <rect x="0" y="20" width="400" height="320" rx="28" fill="url(#gFrontSkin)"/>
+
+                        <!-- globo (esclera) -->
+                        <g clip-path="url(#frontFissure)">
+                            <circle cx="200" cy="180" r="148" fill="url(#gFrontSclera)"/>
+                            <ellipse cx="58" cy="180" rx="18" ry="38" fill="#c9b8a4" opacity=".55"/>
+                            <ellipse cx="342" cy="180" rx="18" ry="38" fill="#c9b8a4" opacity=".55"/>
+                        </g>
+
+                        <!-- íris -->
+                        <g class="eye-part" data-part="iris" clip-path="url(#frontFissure)">
+                            <circle cx="200" cy="180" r="78" fill="url(#gFrontIris)" stroke="#16356e" stroke-width="3"/>
+                            <g clip-path="url(#frontIrisClip)" opacity=".45">
+                                <g stroke="#c8f6ff" stroke-width=".7">
+                                    <line x1="200" y1="180" x2="200" y2="102"/>
+                                    <line x1="200" y1="180" x2="255" y2="114"/>
+                                    <line x1="200" y1="180" x2="275" y2="155"/>
+                                    <line x1="200" y1="180" x2="275" y2="205"/>
+                                    <line x1="200" y1="180" x2="255" y2="246"/>
+                                    <line x1="200" y1="180" x2="200" y2="258"/>
+                                    <line x1="200" y1="180" x2="145" y2="246"/>
+                                    <line x1="200" y1="180" x2="125" y2="205"/>
+                                    <line x1="200" y1="180" x2="125" y2="155"/>
+                                    <line x1="200" y1="180" x2="145" y2="114"/>
+                                    <line x1="200" y1="180" x2="238" y2="108"/>
+                                    <line x1="200" y1="180" x2="268" y2="132"/>
+                                    <line x1="200" y1="180" x2="278" y2="180"/>
+                                    <line x1="200" y1="180" x2="268" y2="228"/>
+                                    <line x1="200" y1="180" x2="238" y2="252"/>
+                                    <line x1="200" y1="180" x2="162" y2="252"/>
+                                    <line x1="200" y1="180" x2="132" y2="228"/>
+                                    <line x1="200" y1="180" x2="122" y2="180"/>
+                                    <line x1="200" y1="180" x2="132" y2="132"/>
+                                    <line x1="200" y1="180" x2="162" y2="108"/>
+                                </g>
+                            </g>
+                            <circle cx="200" cy="180" r="78" fill="none" stroke="#8fd0ff" stroke-width="1.5" opacity=".35"/>
+                        </g>
+
+                        <!-- pupila (raio muda com a luz) -->
+                        <circle id="frontPupil" class="eye-part" data-part="pupila" cx="200" cy="180" r="32" fill="url(#gFrontPupil)" clip-path="url(#frontFissure)"/>
+
+                        <!-- córnea: brilho + anel clicável por cima da íris -->
+                        <g clip-path="url(#frontFissure)">
+                            <circle cx="200" cy="180" r="92" fill="rgba(140,200,255,.12)" pointer-events="none"/>
+                            <circle class="eye-part" data-part="cornea" cx="200" cy="180" r="92" fill="none" stroke="rgba(143,208,255,.85)" stroke-width="10"/>
+                            <ellipse cx="172" cy="154" rx="18" ry="12" fill="rgba(255,255,255,.75)" pointer-events="none"/>
+                            <ellipse cx="226" cy="148" rx="7" ry="5" fill="rgba(255,255,255,.45)" pointer-events="none"/>
+                        </g>
+
+                        <!-- pálpebras (por cima, sem tapar o centro) -->
+                        <path d="M18 180 C 90 96, 310 96, 382 180 C 310 128, 90 128, 18 180 Z" fill="#d4a88c"/>
+                        <path d="M18 180 C 90 264, 310 264, 382 180 C 310 232, 90 232, 18 180 Z" fill="#c99274"/>
+                        <path d="M40 128 C 120 108, 280 108, 360 128" fill="none" stroke="#6b4638" stroke-width="3" stroke-linecap="round" opacity=".55"/>
+
+                        <g class="lbl">
+                            <text x="200" y="48">Córnea (camada transparente)</text>
+                            <text x="78" y="178">Íris</text>
+                            <text x="322" y="178">Pupila</text>
+                        </g>
+                    </svg>
+                </div>
+                <p class="note">De frente você vê a <b>córnea</b>, a <b>íris</b> e a <b>pupila</b>. Cristalino, retina, fóvea e nervo óptico aparecem no corte de perfil.</p>
+            </div>
+        </div>
+
+        <label class="slider">
+            <span>💡 Luz do ambiente <b id="lightVal">50%</b></span>
+            <input type="range" id="lightRange" min="0" max="100" value="50">
+        </label>
+        <p class="readout" id="pupilReadout"></p>
+
+        <div class="chips" id="eyeChips">
+            <button class="chip" data-part="cornea">Córnea</button>
+            <button class="chip" data-part="iris">Íris</button>
+            <button class="chip" data-part="pupila">Pupila</button>
+            <button class="chip" data-part="cristalino">Cristalino</button>
+            <button class="chip" data-part="vitreo">Humor vítreo</button>
+            <button class="chip" data-part="retina">Retina</button>
+            <button class="chip" data-part="fovea">Fóvea</button>
+            <button class="chip" data-part="nervo">Nervo óptico</button>
+        </div>
+
+       <div class="vision-3d">
+            <button class="button-3d fusion-button" data-go="eye3d">
+                <span class="v3d-icon fusion-icon">🧩</span>
+                <span class="v3d-button-text fusion-button-text">
+                    <strong>Modelo 3D</strong>
+                    <small>Veja como o olho funciona em uma visualização 3D</small>
+                </span>
+                <span class="v3d-arrow fusion-arrow">›</span>
+            </button>
+        </div>
+    </section> 
+
+    <section id="eye3d" class="screen">
+        <button class="back" data-go="eye">‹ Olho Humano</button>
+        <div class="fusion-header">
+            <span class="section-tag">BIOLOGIA</span>
+            <h2>🧩 Modelo 3D</h2>
+            <p class="lead">Uma visualização 3D educativa de como o olho funciona.</p>
+        </div>
+        <div class="sketchfab-embed-wrapper"> 
+            <iframe title="Human eye anatomy" 
+                frameborder="0" 
+                allowfullscreen 
+                mozallowfullscreen="true" 
+                webkitallowfullscreen="true" a
+                llow="autoplay; fullscreen; xr-spatial-tracking" 
+                xr-spatial-tracking
+                execution-while-out-of-viewport 
+                execution-while-not-rendered 
+                web-share 
+                src="https://sketchfab.com/models/1a23ab8f624e40a9a461d984f312b609/embed?autostart=1"> 
+            </iframe> 
+        </div>
+
+
+    </section>
+
+    
+<!-- =============== CÂMARA ESCURA =============== -->
+<section id="camera" class="screen">
+    <button class="back" data-go="home">‹ Início</button>
+    <h2>📦 Câmara Escura</h2>
+    <p class="lead">Observe como a luz forma uma imagem invertida ao atravessar um pequeno furo.</p>
+
+    <div class="tabbed">
+        <div class="tabs">
+            <button class="active" data-tab="cam-sim">Simulador</button>
+            <button data-tab="cam-teoria">Teoria</button>
+        </div>
+
+        <div class="tab-panel active" id="cam-sim">
+            <div class="camera-view-switch">
+                <button type="button" class="active" data-cam-view="side">Vista lateral</button>
+                <button type="button" data-cam-view="front">Vista frontal</button>
+            </div>
+
+            <!-- VISTA LATERAL -->
+            <div class="obscura-view active" id="obscura-side">
+                <div class="diagram-heading">
+                    <h3>O caminho da luz</h3>
+                    <p>A luz refletida pela casa passa pelo furo e chega invertida ao anteparo.</p>
+                </div>
+
+                <div class="stage obscura-stage">
+                    <svg id="obscuraSideSvg" viewBox="0 0 520 300" role="img"
+                         aria-label="Vista lateral de uma casa iluminada e uma câmara escura com imagem invertida">
+
+                        <defs>
+                            <linearGradient id="obscuraBox" x1="0" y1="0" x2="1" y2="1">
+                                <stop offset="0" stop-color="#182344"/>
+                                <stop offset="1" stop-color="#090d1b"/>
+                            </linearGradient>
+                            <clipPath id="obscuraInside">
+                                <rect x="220" y="48" width="245" height="210"/>
+                            </clipPath>
+                        </defs>
+
+                        <!-- Casa do lado de fora -->
+                        <g id="obscuraHouse">
+                            <rect x="28" y="139" width="105" height="91" rx="2"
+                                  fill="#273e68" stroke="#8eb8ff" stroke-width="2"/>
+                            <path d="M15 142 L80 91 L146 142 Z"
+                                  fill="#a65dff" stroke="#d7b7ff" stroke-width="2"/>
+                            <rect x="70" y="177" width="24" height="53"
+                                  fill="#0c1326" stroke="#8eb8ff" stroke-width="2"/>
+                            <rect x="40" y="157" width="19" height="19"
+                                  fill="#ffe29a" stroke="#fff1c7"/>
+                            <rect x="104" y="157" width="18" height="19"
+                                  fill="#ffe29a" stroke="#fff1c7"/>
+                            <path d="M80 91 V67" stroke="#8eb8ff" stroke-width="3"/>
+                            <path d="M80 67 h24 v17" fill="none" stroke="#8eb8ff" stroke-width="3"/>
+                            <text x="80" y="250" text-anchor="middle" class="diagram-label">Casa iluminada</text>
+                        </g>
+
+                        <!-- Caixa escura -->
+                        <rect x="220" y="48" width="245" height="210" rx="3"
+                              fill="url(#obscuraBox)" stroke="#8197dc" stroke-width="2.5"/>
+                        <rect x="228" y="56" width="229" height="194"
+                              fill="#050812" stroke="#2b3a66" stroke-dasharray="4 5"/>
+
+                        <!-- Parede com furo -->
+                        <rect x="211" y="48" width="12" height="210" fill="#6574ad"/>
+                        <circle cx="217" cy="153" r="5" fill="#ffe5a6"/>
+                        <circle cx="217" cy="153" r="11" fill="#ffe5a6" opacity=".12"/>
+
+                        <!-- Raios: topo da casa chega embaixo e base chega em cima -->
+                        <g id="obscuraRays" fill="none" stroke-width="2.2" stroke-linecap="round">
+                            <path d="M80 91 L217 153 L449 222" stroke="#ffca72"/>
+                            <path d="M80 230 L217 153 L449 86" stroke="#71c8ff"/>
+                            <path d="M80 160 L217 153 L449 153" stroke="#b69bff" stroke-dasharray="5 5"/>
+                        </g>
+
+                        <!-- Imagem invertida no anteparo -->
+                        <g id="obscuraSideImage" clip-path="url(#obscuraInside)">
+                            <path d="M390 177 L423 207 L456 177 Z"
+                                  fill="#a65dff" stroke="#d7b7ff" stroke-width="2"/>
+                            <rect x="397" y="177" width="52" height="45"
+                                  fill="#273e68" stroke="#8eb8ff" stroke-width="2"/>
+                            <rect x="415" y="196" width="12" height="26"
+                                  fill="#0c1326"/>
+                            <rect x="402" y="184" width="9" height="8" fill="#ffe29a"/>
+                            <rect x="435" y="184" width="8" height="8" fill="#ffe29a"/>
+                        </g>
+
+                        <text x="217" y="35" text-anchor="middle" class="diagram-label">Furo</text>
+                        <text x="340" y="35" text-anchor="middle" class="diagram-label">Interior escuro</text>
+                        <text x="398" y="280" text-anchor="middle" class="diagram-label">Imagem invertida</text>
+                    </svg>
+                </div>
+            </div>
+
+            <!-- VISTA FRONTAL -->
+            <div class="obscura-view" id="obscura-front">
+                <div class="diagram-heading">
+                    <h3>O que aparece dentro da caixa?</h3>
+                    <p>Vendo o anteparo de frente, a imagem da casa aparece de cabeça para baixo.</p>
+                </div>
+
+                <div class="stage obscura-front-stage">
+                    <svg id="obscuraFrontSvg" viewBox="0 0 360 350" role="img"
+                         aria-label="Vista frontal do interior da câmara escura mostrando a casa invertida">
+
+                        <defs>
+                            <linearGradient id="frontBoxGradient" x1="0" y1="0" x2="1" y2="1">
+                                <stop offset="0" stop-color="#17213e"/>
+                                <stop offset="1" stop-color="#050812"/>
+                            </linearGradient>
+                            <radialGradient id="frontGlow">
+                                <stop offset="0" stop-color="#ffca72" stop-opacity=".20"/>
+                                <stop offset="1" stop-color="#ffca72" stop-opacity="0"/>
+                            </radialGradient>
+                        </defs>
+
+                        <!-- Moldura externa da caixa -->
+                        <rect x="22" y="18" width="316" height="310" rx="15"
+                              fill="url(#frontBoxGradient)" stroke="#8197dc" stroke-width="3"/>
+                        <rect x="38" y="34" width="284" height="278" rx="8"
+                              fill="#050812" stroke="#34436e" stroke-width="2"/>
+
+                        <!-- Brilho da imagem -->
+                        <ellipse cx="180" cy="173" rx="112" ry="100" fill="url(#frontGlow)"/>
+
+                        <!-- Casa desenhada de cabeça para baixo -->
+                        <g id="obscuraFrontImage" transform="translate(180 173) rotate(180)">
+                            <rect x="-55" y="-4" width="110" height="76"
+                                  fill="#273e68" stroke="#8eb8ff" stroke-width="2.5"/>
+                            <path d="M-68 -2 L0 -57 L68 -2 Z"
+                                  fill="#a65dff" stroke="#d7b7ff" stroke-width="2.5"/>
+                            <rect x="-12" y="26" width="24" height="46"
+                                  fill="#0c1326" stroke="#8eb8ff" stroke-width="2"/>
+                            <rect x="-43" y="11" width="18" height="17" fill="#ffe29a"/>
+                            <rect x="25" y="11" width="18" height="17" fill="#ffe29a"/>
+                            <path d="M0 -57 V-80 H24 V-64"
+                                  fill="none" stroke="#8eb8ff" stroke-width="3"/>
+                        </g>
+
+                        <circle cx="180" cy="173" r="3" fill="#ffe5a6"/>
+                        <text x="180" y="302" text-anchor="middle" class="diagram-label">
+                            Imagem formada no anteparo
+                        </text>
+                    </svg>
+                </div>
+
+                <p class="obscura-note">A imagem é invertida porque os raios de luz se cruzam ao passar pelo furo.</p>
+            </div>
+
+            <label class="slider">
+                <span>Tamanho do furo <b id="holeVal"></b></span>
+                <input type="range" id="holeRange" min="2" max="24" value="6">
+            </label>
+
+            <label class="slider">
+                <span>Distância do objeto <b id="distVal"></b></span>
+                <input type="range" id="distRange" min="110" max="210" value="150">
+            </label>
+
+            <p class="readout" id="pinReadout"></p>
+        </div>
+
+        <div class="tab-panel" id="cam-teoria">
+            <div class="info-card">
+                <h3>O princípio</h3>
+                <p>A luz se propaga em linha reta. A luz refletida pela casa atravessa o pequeno furo e forma uma imagem no anteparo dentro da caixa.</p>
+                <h3>Por que a imagem é invertida?</h3>
+                <p>Os raios que vêm do alto da casa chegam à parte inferior do anteparo, enquanto os raios da parte inferior chegam à parte superior.</p>
+                <h3>Furo pequeno e furo grande</h3>
+                <p>Um furo pequeno tende a produzir uma imagem mais nítida, mas menos luminosa. Um furo grande deixa entrar mais luz, porém pode deixar a imagem borrada.</p>
+                <h3>O que isso tem a ver com o olho?</h3>
+                <p>Nos dois casos, a luz entra por uma abertura e forma uma imagem invertida. No olho, a retina recebe a imagem; na câmara escura, ela aparece no anteparo.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- =============== ANATOMIA DA CÂMERA =============== -->
+<section id="camera-anatomy" class="screen">
+    <button class="back" data-go="home">‹ Início</button>
+    <h2>📸 Anatomia da Câmera</h2>
+    <p class="lead">Explore os componentes de uma câmera fotográfica e descubra como ela registra a luz.</p>
+
+    <div class="camera-view-switch">
+        <button type="button" class="active" data-anatomy-view="front">Vista frontal</button>
+        <button type="button" data-anatomy-view="side">Vista lateral em corte</button>
+    </div>
+
+    <!-- FRENTE DA CÂMERA -->
+    <div class="anatomy-view active" id="anatomy-front">
+        <div class="stage anatomy-stage">
+            <svg viewBox="0 0 420 300" role="img" aria-label="Câmera fotográfica vista de frente">
+                <defs>
+                    <linearGradient id="cameraBodyFront" x1="0" y1="0" x2="1" y2="1">
+                        <stop offset="0" stop-color="#34456d"/>
+                        <stop offset="1" stop-color="#101629"/>
+                    </linearGradient>
+                    <radialGradient id="cameraLensFront">
+                        <stop offset="0" stop-color="#8bd7ff"/>
+                        <stop offset=".35" stop-color="#263f73"/>
+                        <stop offset=".72" stop-color="#101629"/>
+                        <stop offset="1" stop-color="#6477a9"/>
+                    </radialGradient>
+                </defs>
+
+                <path d="M65 92 L108 54 H173 L194 76 H330 Q346 76 346 92 V233 Q346 247 331 247 H65 Q50 247 50 232 V108 Q50 92 65 92Z"
+                      fill="url(#cameraBodyFront)" stroke="#8197dc" stroke-width="3"/>
+
+                <!-- Flash -->
+                <rect x="118" y="65" width="58" height="18" rx="5"
+                      fill="#d5e4ff" stroke="#8eb8ff" stroke-width="2"
+                      class="camera-part" data-camera-part="flash"/>
+                <circle cx="305" cy="103" r="7" fill="#ffca72"
+                        class="camera-part" data-camera-part="lamp"/>
+
+                <!-- Objetiva -->
+                <circle cx="202" cy="163" r="76" fill="#11182a"
+                        stroke="#8197dc" stroke-width="5"
+                        class="camera-part" data-camera-part="objective"/>
+                <circle cx="202" cy="163" r="62" fill="#293c68"
+                        stroke="#8eb8ff" stroke-width="3"
+                        class="camera-part" data-camera-part="objective"/>
+                <circle cx="202" cy="163" r="49" fill="url(#cameraLensFront)"
+                        stroke="#c2d7ff" stroke-width="2"
+                        class="camera-part" data-camera-part="objective"/>
+                <circle cx="188" cy="146" r="13" fill="#c6f0ff" opacity=".25"/>
+                <circle cx="202" cy="163" r="21" fill="#080d1c"
+                        stroke="#91baff" stroke-width="2"
+                        class="camera-part" data-camera-part="objective"/>
+
+                <!-- Botão do obturador -->
+                <circle cx="280" cy="91" r="12" fill="#8eb8ff"
+                        stroke="#d9e6ff" stroke-width="2"
+                        class="camera-part" data-camera-part="shutter"/>
+
+                <!-- Visor -->
+                <rect x="76" y="103" width="36" height="20" rx="4"
+                      fill="#070b15" stroke="#8eb8ff" stroke-width="2"
+                      class="camera-part" data-camera-part="viewfinder"/>
+
+                <!-- Pegada -->
+                <path d="M65 137 Q82 128 91 142 V222 Q80 235 65 220Z"
+                      fill="#080d19" stroke="#50638f" stroke-width="2"/>
+
+                <text x="202" y="275" text-anchor="middle" class="diagram-label">
+                    Selecione uma parte da câmera
+                </text>
+
+                <g class="camera-hotspots">
+                    <circle cx="202" cy="163" r="84" data-camera-part="objective" class="camera-hotspot"/>
+                    <circle cx="147" cy="73" r="15" data-camera-part="flash" class="camera-hotspot"/>
+                    <circle cx="280" cy="91" r="15" data-camera-part="shutter" class="camera-hotspot"/>
+                    <circle cx="94" cy="113" r="15" data-camera-part="viewfinder" class="camera-hotspot"/>
+                </g>
+            </svg>
+        </div>
+    </div>
+
+    <!-- LATERAL EM CORTE -->
+    <div class="anatomy-view" id="anatomy-side">
+        <div class="stage anatomy-stage">
+            <svg viewBox="0 0 440 300" role="img" aria-label="Corte lateral interno de uma câmera reflex">
+                <defs>
+                    <linearGradient id="cameraBodySide" x1="0" y1="0" x2="1" y2="1">
+                        <stop offset="0" stop-color="#28395f"/>
+                        <stop offset="1" stop-color="#101629"/>
+                    </linearGradient>
+                </defs>
+
+                <!-- Corpo e interior -->
+                <path d="M92 78 H338 L365 105 V235 H92Z"
+                      fill="url(#cameraBodySide)" stroke="#8197dc" stroke-width="3"/>
+                <path d="M108 96 H327 V216 H108Z"
+                      fill="#080d19" stroke="#455a8f" stroke-width="2"/>
+
+                <!-- Objetiva e elementos de lente -->
+                <rect x="24" y="127" width="88" height="62" rx="8"
+                      fill="#34456d" stroke="#8eb8ff" stroke-width="3"
+                      class="camera-part" data-camera-part="objective"/>
+                <ellipse cx="30" cy="158" rx="8" ry="35"
+                         fill="#8bd7ff" fill-opacity=".7" stroke="#d5eaff" stroke-width="2"
+                         class="camera-part" data-camera-part="objective"/>
+                <ellipse cx="57" cy="158" rx="6" ry="27"
+                         fill="#9acbff" fill-opacity=".4" stroke="#8eb8ff" stroke-width="2"
+                         class="camera-part" data-camera-part="objective"/>
+
+                <!-- Diafragma -->
+                <path d="M119 128 L132 145 L132 171 L119 188"
+                      fill="none" stroke="#c6a7ff" stroke-width="5"
+                      class="camera-part" data-camera-part="aperture"/>
+
+                <!-- Espelho reflex -->
+                <path d="M154 137 L193 177" stroke="#8bd7ff" stroke-width="10"
+                      stroke-linecap="round"
+                      class="camera-part" data-camera-part="mirror"/>
+                <path d="M154 137 L193 177" stroke="#e4f5ff" stroke-width="2"
+                      stroke-linecap="round"/>
+
+                <!-- Caminho de luz -->
+                <path d="M40 158 L127 158 L174 158 L217 107 L272 107"
+                      fill="none" stroke="#ffca72" stroke-width="2.5"
+                      stroke-dasharray="6 5"/>
+                <path d="M267 101 L277 107 L267 113" fill="none"
+                      stroke="#ffca72" stroke-width="2.5"/>
+
+                <!-- Obturador -->
+                <rect x="224" y="91" width="8" height="33" rx="2"
+                      fill="#a65dff" stroke="#d7b7ff" stroke-width="2"
+                      class="camera-part" data-camera-part="shutter-curtain"/>
+
+                <!-- Sensor -->
+                <rect x="298" y="111" width="12" height="91" rx="2"
+                      fill="#71c8ff" stroke="#d5f2ff" stroke-width="2"
+                      class="camera-part" data-camera-part="sensor"/>
+
+                <!-- Caminho para o visor e pentaprisma -->
+                <path d="M200 96 L222 61 H278 L298 96"
+                      fill="#5d4c88" stroke="#c6a7ff" stroke-width="2"
+                      class="camera-part" data-camera-part="prism"/>
+                <rect x="221" y="50" width="59" height="12" rx="3"
+                      fill="#11182a" stroke="#8eb8ff" stroke-width="2"
+                      class="camera-part" data-camera-part="viewfinder"/>
+
+                <!-- Rótulos clicáveis -->
+                <g class="camera-labels">
+                    <text x="67" y="116" text-anchor="middle" data-camera-part="objective">Objetiva</text>
+                    <text x="132" y="211" text-anchor="middle" data-camera-part="aperture">Diafragma</text>
+                    <text x="175" y="196" text-anchor="middle" data-camera-part="mirror">Espelho</text>
+                    <text x="229" y="145" text-anchor="middle" data-camera-part="shutter-curtain">Obturador</text>
+                    <text x="306" y="228" text-anchor="middle" data-camera-part="sensor">Sensor</text>
+                    <text x="250" y="40" text-anchor="middle" data-camera-part="prism">Pentaprisma</text>
+                    <text x="250" y="17" text-anchor="middle" data-camera-part="viewfinder">Visor</text>
+                </g>
+            </svg>
+        </div>
+    </div>
+
+    <div class="info-card camera-part-info" id="cameraPartInfo" aria-live="polite">
+        <span class="info-label">ANATOMIA DA CÂMERA</span>
+        <h3 id="cameraPartTitle">Escolha uma peça</h3>
+        <p id="cameraPartText">Toque em uma parte do desenho para conhecer sua função.</p>
+        <p id="cameraEyeRelation" class="cam-note"></p>
+    </div>
+
+    <p class="camera-disclaimer">
+        Este esquema representa uma câmera reflex (DSLR). Câmeras digitais sem espelho possuem uma construção interna diferente.
+    </p>
+</section>
+
+
+
+    <!-- ================= LUZ E CORES ================= -->
+    <section id="light" class="screen">
+        <button class="back" data-go="home">‹ Início</button>
+        <h2>🌈 Luz e Cores</h2>
+
+        <div class="tabbed">
+            <div class="tabs">
+                <button class="active" data-tab="light-spec">Espectro</button>
+                <button data-tab="light-rgb">Mistura RGB</button>
+                <button data-tab="light-obj">Luz × objeto</button>
+            </div>
+
+            <div class="tab-panel active" id="light-spec">
+                <div class="info-card">
+                    <div class="swatch" id="waveSwatch"></div>
+                    <p class="readout" id="waveText"></p>
+                    <label class="slider">
+                        <span>Comprimento de onda <b id="waveVal"></b></span>
+                        <input type="range" id="waveRange" min="380" max="750" value="550">
+                    </label>
+                    <h3>Resposta dos cones da retina</h3>
+                    <div class="bars">
+                        <div class="bar"><span>Cone S (azul)</span><div><i class="s" id="coneS"></i></div></div>
+                        <div class="bar"><span>Cone M (verde)</span><div><i class="m" id="coneM"></i></div></div>
+                        <div class="bar"><span>Cone L (vermelho)</span><div><i class="l" id="coneL"></i></div></div>
+                    </div>
+                    <p class="note">Curvas simplificadas, só para fins didáticos. O cérebro compara os três sinais para formar a cor percebida.</p>
+                </div>
+            </div>
+
+            <div class="tab-panel" id="light-rgb">
+                <div class="info-card">
+                    <div class="swatch" id="mixSwatch"></div>
+                    <p class="readout" id="mixText"></p>
+                    <label class="slider"><span>Vermelho <b id="rRv"></b></span><input type="range" id="rR" min="0" max="255" value="255"></label>
+                    <label class="slider"><span>Verde <b id="rGv"></b></span><input type="range" id="rG" min="0" max="255" value="140"></label>
+                    <label class="slider"><span>Azul <b id="rBv"></b></span><input type="range" id="rB" min="0" max="255" value="0"></label>
+                    <p class="note">Telas e sensores usam síntese aditiva: vermelho + verde + azul no máximo formam o branco. Impressoras usam a subtrativa (ciano, magenta e amarelo).</p>
+                </div>
+            </div>
+
+            <div class="tab-panel" id="light-obj">
+                <div class="info-card">
+                    <h3>Cor da luz</h3>
+                    <div class="chips" id="lightPick">
+                        <button class="chip active" data-light="branca">Branca</button>
+                        <button class="chip" data-light="vermelha">Vermelha</button>
+                        <button class="chip" data-light="verde">Verde</button>
+                        <button class="chip" data-light="azul">Azul</button>
+                    </div>
+                    <h3>Cor do objeto</h3>
+                    <div class="chips" id="objPick">
+                        <button class="chip active" data-obj="vermelho">Vermelho</button>
+                        <button class="chip" data-obj="verde">Verde</button>
+                        <button class="chip" data-obj="azul">Azul</button>
+                        <button class="chip" data-obj="branco">Branco</button>
+                    </div>
+                    <div class="swatch" id="objSwatch"></div>
+                    <p class="readout" id="objText"></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= OLHO × CÂMERA ================= -->
+    <section id="compare" class="screen">
+        <button class="back" data-go="home">‹ Início</button>
+        <h2>⚖️ Olho × Câmera</h2>
+
+        <div class="tabbed">
+            <div class="tabs">
+                <button class="active" data-tab="cmp-eye">Olho</button>
+                <button data-tab="cmp-analog">Analógica</button>
+                <button data-tab="cmp-digital">Digital</button>
+                <button data-tab="cmp-table">Lado a lado</button>
+            </div>
+
+            <div class="tab-panel active" id="cmp-eye">
+                <div class="info-card">
+                    <h3>O caminho da luz no olho</h3>
+                    <ol class="flow">
+                        <li>A luz atravessa a <b>córnea</b>, que faz a maior parte da refração.</li>
+                        <li>A <b>pupila</b> regula quanta luz entra (controlada pela íris).</li>
+                        <li>O <b>cristalino</b> ajusta o foco.</li>
+                        <li>A imagem se forma <b>invertida</b> na <b>retina</b>.</li>
+                        <li>Cones e bastonetes transformam luz em impulsos nervosos.</li>
+                        <li>O <b>nervo óptico</b> leva os sinais ao cérebro, que interpreta a imagem.</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="tab-panel" id="cmp-analog">
+                <div class="info-card">
+                    <h3>O caminho da luz na câmera analógica</h3>
+                    <ol class="flow">
+                        <li>A luz passa pela <b>lente</b> (objetiva).</li>
+                        <li>O <b>diafragma</b> controla a abertura e o <b>obturador</b>, o tempo de exposição.</li>
+                        <li>Os cristais de <b>haletos de prata</b> do filme são sensibilizados (imagem latente).</li>
+                        <li>A <b>revelação</b> química reduz Ag⁺ a prata metálica nos pontos expostos.</li>
+                        <li>O <b>fixador</b> remove o haleto não exposto e o negativo fica estável.</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="tab-panel" id="cmp-digital">
+                <div class="info-card">
+                    <h3>O caminho da luz na câmera digital</h3>
+                    <ol class="flow">
+                        <li>A luz passa pela <b>lente</b> e pelo <b>diafragma</b>.</li>
+                        <li>Um <b>filtro de cores</b> separa vermelho, verde e azul sobre os pixels.</li>
+                        <li>O <b>sensor</b> de silício (CMOS/CCD) converte fótons em carga elétrica.</li>
+                        <li>O conversor transforma a carga em números (dados digitais).</li>
+                        <li>O <b>processador</b> monta a imagem e grava no cartão de memória.</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="tab-panel" id="cmp-table">
+                <div class="info-card">
+                    <table class="compare-table">
+                        <tr><th>Olho</th><th>Analógica</th><th>Digital</th></tr>
+                        <tr><td>Pupila / íris</td><td>Diafragma</td><td>Diafragma</td></tr>
+                        <tr><td>Córnea e cristalino</td><td>Objetiva</td><td>Objetiva</td></tr>
+                        <tr><td>Retina</td><td>Filme</td><td>Sensor</td></tr>
+                        <tr><td>Reações bioquímicas</td><td>Reações químicas (prata)</td><td>Efeito fotoelétrico (silício)</td></tr>
+                        <tr><td>Cérebro</td><td>Laboratório</td><td>Processador</td></tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= DOENÇAS VISUAIS ================= -->
+    <section id="diseases" class="screen">
+        <button class="back" data-go="home">‹ Início</button>
+        <h2>🩺 Doenças Visuais</h2>
+        <p class="lead">Configure cada olho separadamente e veja como as diferenças podem alterar a percepção visual.</p>
+
+        <div class="vision-eyes-grid">
+            <article class="vision-eye-card" data-eye="left">
+                <div class="vision-eye-head">
+                    <div>
+                        <span class="eye-kicker">ENTRADA VISUAL</span>
+                        <h3>👁️ Olho esquerdo</h3>
+                    </div>
+                    <span class="eye-status-badge" id="leftStatus">Normal</span>
+                </div>
+
+                <label class="vision-field">
+                    <span>Condição</span>
+                    <select id="leftDisease">
+                        <option value="normal">Visão normal</option>
+                        <option value="miopia">Miopia</option>
+                        <option value="hipermetropia">Hipermetropia</option>
+                        <option value="astigmatismo">Astigmatismo</option>
+                        <option value="catarata">Catarata</option>
+                        <option value="glaucoma">Glaucoma</option>
+                        <option value="daltonismo">Daltonismo</option>
+                    </select>
+                </label>
+
+                <div class="vision-prescription-grid">
+                    <label class="vision-field refractive-field">
+                        <span>Grau / esférico <b id="leftDegreeVal">0,00 D</b></span>
+                        <input id="leftDegree" type="range" min="-12" max="6" step="0.25" value="0">
+                    </label>
+                    <label class="vision-field cylinder-field">
+                        <span>Cilindro <b id="leftCylinderVal">0,00 D</b></span>
+                        <input id="leftCylinder" type="range" min="-6" max="0" step="0.25" value="0">
+                    </label>
+                </div>
+
+                <label class="vision-field axis-field">
+                    <span>Eixo <b id="leftAxisVal">0°</b></span>
+                    <input id="leftAxis" type="range" min="0" max="180" step="1" value="0">
+                </label>
+
+                <div class="vision-mini-scene" id="leftVisionScene">
+                    <div class="vision-scene-content">
+                        <div class="mini-sky"></div>
+                        <div class="mini-mountain"></div>
+                        <div class="mini-ground"></div>
+                        <div class="mini-house"><i></i><i></i><i></i></div>
+                        <div class="mini-tree"><i></i><b></b></div>
+                    </div>
+                </div>
+
+                <p class="vision-reading" id="leftReading">Visão nítida e cores preservadas.</p>
+            </article>
+
+            <article class="vision-eye-card" data-eye="right">
+                <div class="vision-eye-head">
+                    <div>
+                        <span class="eye-kicker">ENTRADA VISUAL</span>
+                        <h3>👁️ Olho direito</h3>
+                    </div>
+                    <span class="eye-status-badge" id="rightStatus">Normal</span>
+                </div>
+
+                <label class="vision-field">
+                    <span>Condição</span>
+                    <select id="rightDisease">
+                        <option value="normal">Visão normal</option>
+                        <option value="miopia">Miopia</option>
+                        <option value="hipermetropia">Hipermetropia</option>
+                        <option value="astigmatismo">Astigmatismo</option>
+                        <option value="catarata">Catarata</option>
+                        <option value="glaucoma">Glaucoma</option>
+                        <option value="daltonismo">Daltonismo</option>
+                    </select>
+                </label>
+
+                <div class="vision-prescription-grid">
+                    <label class="vision-field refractive-field">
+                        <span>Grau / esférico <b id="rightDegreeVal">0,00 D</b></span>
+                        <input id="rightDegree" type="range" min="-12" max="6" step="0.25" value="0">
+                    </label>
+                    <label class="vision-field cylinder-field">
+                        <span>Cilindro <b id="rightCylinderVal">0,00 D</b></span>
+                        <input id="rightCylinder" type="range" min="-6" max="0" step="0.25" value="0">
+                    </label>
+                </div>
+
+                <label class="vision-field axis-field">
+                    <span>Eixo <b id="rightAxisVal">0°</b></span>
+                    <input id="rightAxis" type="range" min="0" max="180" step="1" value="0">
+                </label>
+
+                <div class="vision-mini-scene" id="rightVisionScene">
+                    <div class="vision-scene-content">
+                        <div class="mini-sky"></div>
+                        <div class="mini-mountain"></div>
+                        <div class="mini-ground"></div>
+                        <div class="mini-house"><i></i><i></i><i></i></div>
+                        <div class="mini-tree"><i></i><b></b></div>
+                    </div>
+                </div>
+
+                <p class="vision-reading" id="rightReading">Visão nítida e cores preservadas.</p>
+            </article>
+        </div>
+
+        <div class="vision-comparison-card">
+            <span class="info-label">COMPARAÇÃO BINOCULAR</span>
+            <h3 id="visionComparisonTitle">Os dois olhos estão em condições semelhantes</h3>
+            <p id="visionComparisonText">As duas entradas visuais apresentam pouca diferença nesta simulação.</p>
+        </div>
+
+        <div class="fusion-entry">
+            <button class="fusion-button" data-go="binocular">
+                <span class="fusion-icon">🧠</span>
+                <span class="fusion-button-text">
+                    <strong>Visão Fundida</strong>
+                    <small>Veja como os dois olhos trabalham juntos em uma visualização 3D</small>
+                </span>
+                <span class="fusion-arrow">›</span>
+            </button>
+        </div>
+
+        <div class="info-card vision-note-card">
+            <span class="info-label">NOTA EDUCATIVA</span>
+            <p>Os valores em dioptrias representam uma simulação didática. Catarata, glaucoma e daltonismo não são definidos por “grau” da mesma forma que miopia, hipermetropia e astigmatismo.</p>
+        </div>
+    </section>
+
+    <!-- ================= VISÃO FUNDIDA ================= -->
+    <section id="binocular" class="screen">
+        <button class="back" data-go="diseases">‹ Doenças Visuais</button>
+        <div class="fusion-header">
+            <span class="section-tag">BIOLOGIA • FÍSICA</span>
+            <h2>🧠 Visão Fundida</h2>
+            <p class="lead">Uma visualização 3D/2,5D educativa de como duas entradas visuais podem ser combinadas em uma única percepção.</p>
+        </div>
+
+        <div class="fusion-eyes-status">
+            <div class="fusion-eye-status"><span class="eye-dot left-dot"></span><div><small>OLHO ESQUERDO</small><strong id="binocularLeftStatus">Visão normal</strong></div></div>
+            <div class="fusion-eye-status"><span class="eye-dot right-dot"></span><div><small>OLHO DIREITO</small><strong id="binocularRightStatus">Visão normal</strong></div></div>
+        </div>
+
+        <div class="binocular-view">
+            <div class="depth-label depth-back">IMAGEM DISTANTE</div>
+            <div class="depth-label depth-front">PROFUNDIDADE</div>
+            <div class="binocular-stage">
+                <div class="binocular-layer binocular-left" id="binocularLeft">
+                    <div class="binocular-scene">
+                        <div class="sky"></div><div class="mountain mountain-back"></div><div class="mountain mountain-front"></div><div class="ground"></div>
+                        <div class="tree tree-one"><div class="tree-top"></div><div class="tree-trunk"></div></div>
+                        <div class="tree tree-two"><div class="tree-top"></div><div class="tree-trunk"></div></div>
+                        <div class="building"><div class="building-window"></div><div class="building-window"></div><div class="building-window"></div></div>
+                    </div>
+                </div>
+                <div class="binocular-layer binocular-right" id="binocularRight">
+                    <div class="binocular-scene">
+                        <div class="sky"></div><div class="mountain mountain-back"></div><div class="mountain mountain-front"></div><div class="ground"></div>
+                        <div class="tree tree-one"><div class="tree-top"></div><div class="tree-trunk"></div></div>
+                        <div class="tree tree-two"><div class="tree-top"></div><div class="tree-trunk"></div></div>
+                        <div class="building"><div class="building-window"></div><div class="building-window"></div><div class="building-window"></div></div>
+                    </div>
+                </div>
+                <div class="binocular-fused" id="binocularFused">
+                    <div class="fused-scene">
+                        <div class="fused-sky"></div><div class="fused-mountain"></div><div class="fused-ground"></div>
+                        <div class="fused-building"><span></span><span></span><span></span></div>
+                        <div class="fused-tree"><div></div><span></span></div>
+                    </div>
+                </div>
+                <div class="fixation-point"><span></span></div>
+            </div>
+            <div class="fusion-axis"><span>← OLHO ESQUERDO</span><div class="fusion-axis-line"><i></i></div><span>OLHO DIREITO →</span></div>
+        </div>
+
+        <div class="fusion-info-card">
+            <span class="info-label">COMO O CÉREBRO COMBINA AS IMAGENS</span>
+            <h3>Uma única percepção visual</h3>
+            <p id="binocularDepthText">Os dois olhos estão recebendo imagens semelhantes. O cérebro pode comparar pequenas diferenças entre elas para contribuir para a percepção de profundidade.</p>
+        </div>
+
+        <div class="fusion-legend">
+            <div><span class="legend-dot left"></span><small>Entrada esquerda</small></div>
+            <div><span class="legend-dot right"></span><small>Entrada direita</small></div>
+            <div><span class="legend-dot fused"></span><small>Imagem fundida</small></div>
+        </div>
+    </section>
+
+    
+<!-- =============== QUÍMICA, VISÃO E SUSTENTABILIDADE =============== -->
+<section id="chemistry" class="screen">
+    <button class="back" data-go="home">‹ Início</button>
+
+    <header class="sustain-hero">
+        <span class="sustain-symbol">⚗️</span>
+        <h2>Visão, Química e Sustentabilidade</h2>
+        <p class="lead">
+            A ciência por trás das lentes, o reaproveitamento de materiais
+            e a importância da saúde visual para a sociedade.
+        </p>
+    </header>
+
+    <div class="tabbed sustain-tabs">
+        <div class="tabs">
+            <button class="active" data-tab="chem-materials">Química</button>
+            <button data-tab="chem-glasses">Óculos e lentes</button>
+            <button data-tab="chem-social">Impactos sociais</button>
+            <button data-tab="chem-sustain">Sustentabilidade</button>
+        </div>
+
+        <!-- ============ ABA 1: QUÍMICA ============ -->
+        <div class="tab-panel active" id="chem-materials">
+            <div class="info-card">
+                <span class="info-label">CIÊNCIA DOS MATERIAIS</span>
+                <h3>O que existe em uma lente?</h3>
+                <p>
+                    As lentes dos óculos e das câmeras são feitas de materiais
+                    selecionados por suas propriedades ópticas, químicas e
+                    mecânicas. A composição influencia o peso, a transparência,
+                    a resistência e a forma como a luz atravessa a lente.
+                </p>
+            </div>
+
+            <div class="science-grid">
+                <article class="science-card">
+                    <span class="science-icon">🔬</span>
+                    <h3>Polímeros</h3>
+                    <p>
+                        Muitas lentes oftálmicas são produzidas com polímeros,
+                        materiais formados por longas cadeias de moléculas.
+                        Eles podem ser leves e oferecer boa resistência a
+                        impactos, dependendo do tipo e da fabricação.
+                    </p>
+                    <small>Exemplo: policarbonato e materiais de alto índice de refração.</small>
+                </article>
+
+                <article class="science-card">
+                    <span class="science-icon">💎</span>
+                    <h3>Vidro óptico</h3>
+                    <p>
+                        O vidro é formado principalmente por uma estrutura
+                        baseada em sílica e outros componentes. Pode apresentar
+                        excelente qualidade óptica, mas algumas lentes de vidro
+                        são mais pesadas e podem quebrar com impactos.
+                    </p>
+                    <small>Usado em algumas lentes oftálmicas e sistemas de câmeras.</small>
+                </article>
+
+                <article class="science-card">
+                    <span class="science-icon">✨</span>
+                    <h3>Revestimentos</h3>
+                    <p>
+                        Camadas muito finas aplicadas sobre a lente podem
+                        diminuir reflexos, facilitar a limpeza ou aumentar a
+                        resistência a riscos. Cada revestimento tem uma função
+                        específica.
+                    </p>
+                    <small>Exemplo: tratamento antirreflexo.</small>
+                </article>
+
+                <article class="science-card">
+                    <span class="science-icon">☀️</span>
+                    <h3>Proteção UV</h3>
+                    <p>
+                        Algumas lentes possuem materiais ou tratamentos que
+                        bloqueiam parte da radiação ultravioleta. A proteção
+                        depende das especificações do produto, não apenas da
+                        cor ou do escurecimento da lente.
+                    </p>
+                    <small>Óculos escuros devem oferecer proteção UV declarada.</small>
+                </article>
+            </div>
+
+            <div class="info-card">
+                <span class="info-label">QUÍMICA E ÓPTICA</span>
+                <h3>Como a lente corrige a visão?</h3>
+                <p>
+                    A correção visual depende principalmente da forma e do
+                    índice de refração da lente. A luz muda de direção ao
+                    atravessar materiais diferentes. Uma lente adequada ajuda
+                    a direcionar os raios para que a imagem seja focalizada
+                    corretamente na retina.
+                </p>
+                <p>
+                    A composição química contribui para as propriedades do
+                    material, enquanto a geometria e o índice de refração
+                    determinam seu comportamento óptico.
+                </p>
+            </div>
+
+            <div class="info-card">
+                <span class="info-label">FOTOGRAFIA ANALÓGICA</span>
+                <h3>A química também registra imagens</h3>
+                <p>
+                    Na fotografia analógica, cristais de haletos de prata
+                    presentes no filme reagem à luz. Durante a revelação,
+                    reações químicas tornam a imagem visível. Na fixação,
+                    os compostos que não foram adequadamente expostos são
+                    removidos do material fotográfico.
+                </p>
+                <p>
+                    Os produtos químicos usados no processamento precisam ser
+                    manipulados e destinados corretamente. Não devem ser
+                    despejados no esgoto sem avaliação das regras aplicáveis.
+                </p>
+            </div>
+
+            <details class="acc">
+                <summary>O que é índice de refração?</summary>
+                <div class="body">
+                    <p>
+                        É uma medida de como a luz se propaga em um material.
+                        Ele influencia o desvio da luz quando ela atravessa
+                        uma superfície. Em lentes com o mesmo grau, um material
+                        de índice de refração maior pode permitir uma lente
+                        mais fina, dependendo do desenho e da montagem.
+                    </p>
+                </div>
+            </details>
+        </div>
+
+        <!-- ============ ABA 2: ÓCULOS E LENTES ============ -->
+        <div class="tab-panel" id="chem-glasses">
+            <div class="info-card">
+                <span class="info-label">REUTILIZAR COM RESPONSABILIDADE</span>
+                <h3>Óculos antigos ainda podem ter utilidade</h3>
+                <p>
+                    Um par de óculos pode deixar de ser usado porque a armação
+                    quebrou, a receita mudou ou a pessoa adquiriu outro modelo.
+                    Isso não significa que todos os seus componentes perderam
+                    a utilidade.
+                </p>
+                <p>
+                    Em alguns casos, a armação pode ser consertada, as lentes
+                    podem ser preservadas ou os óculos podem ser encaminhados
+                    para programas de doação que avaliem sua condição.
+                </p>
+            </div>
+
+            <div class="science-grid">
+                <article class="science-card">
+                    <span class="science-icon">🛠️</span>
+                    <h3>Reparo da armação</h3>
+                    <p>
+                        Parafusos, plaquetas e algumas hastes podem ser
+                        substituídos. O conserto prolonga a vida útil dos
+                        óculos e pode evitar a compra de uma armação nova.
+                    </p>
+                </article>
+
+                <article class="science-card">
+                    <span class="science-icon">👓</span>
+                    <h3>Reaproveitamento das lentes</h3>
+                    <p>
+                        Em determinadas situações, lentes podem ser transferidas
+                        para outra armação compatível. Isso depende das medidas,
+                        do formato, do estado das lentes e da avaliação de um
+                        profissional óptico.
+                    </p>
+                </article>
+
+                <article class="science-card">
+                    <span class="science-icon">🤝</span>
+                    <h3>Doação responsável</h3>
+                    <p>
+                        Óculos em bom estado podem ser aceitos por projetos de
+                        doação. A organização responsável precisa verificar
+                        quais modelos recebe, como avalia os óculos e como
+                        garante que cheguem a quem precisa.
+                    </p>
+                </article>
+
+                <article class="science-card">
+                    <span class="science-icon">♻️</span>
+                    <h3>Recuperação de materiais</h3>
+                    <p>
+                        Quando o reparo ou a reutilização não são possíveis,
+                        alguns componentes podem ser separados para recuperação
+                        de materiais, de acordo com a estrutura e os recursos
+                        disponíveis no sistema de reciclagem.
+                    </p>
+                </article>
+            </div>
+
+            <div class="warning-card">
+                <h3>⚠️ Reutilizar não significa usar qualquer grau</h3>
+                <p>
+                    A receita visual é individual. Não é seguro escolher óculos
+                    apenas porque serviram bem a outra pessoa. Uma lente com
+                    grau inadequado pode causar desconforto e visão desfocada.
+                    O reaproveitamento deve respeitar a avaliação visual e a
+                    orientação profissional.
+                </p>
+            </div>
+
+            <details class="acc">
+                <summary>Posso reutilizar qualquer lente em outra armação?</summary>
+                <div class="body">
+                    <p>
+                        Não. A lente precisa ter dimensões e formato compatíveis
+                        com a nova armação, além de estar em boas condições.
+                        O processo pode exigir corte e montagem especializados.
+                        Algumas lentes não podem ser reaproveitadas sem perder
+                        suas características ou comprometer a montagem.
+                    </p>
+                </div>
+            </details>
+
+            <details class="acc">
+                <summary>O que verificar antes de doar óculos?</summary>
+                <div class="body">
+                    <p>
+                        Verifique se as lentes estão em boas condições, se a
+                        armação está íntegra e se o projeto receptor aceita
+                        aquele tipo de óculos. A organização deve orientar a
+                        triagem e o destino adequado de cada par recebido.
+                    </p>
+                </div>
+            </details>
+        </div>
+
+        <!-- ============ ABA 3: IMPACTOS SOCIAIS ============ -->
+        <div class="tab-panel" id="chem-social">
+            <div class="info-card">
+                <span class="info-label">SAÚDE E DIREITOS</span>
+                <h3>Enxergar bem também é uma questão social</h3>
+                <p>
+                    A visão participa de muitas atividades diárias: ler,
+                    estudar, reconhecer rostos, caminhar, utilizar telas e
+                    realizar tarefas profissionais. Quando uma pessoa tem
+                    dificuldade visual e não consegue receber avaliação ou
+                    correção adequada, várias dessas atividades podem se
+                    tornar mais difíceis.
+                </p>
+                <p>
+                    O acesso à saúde visual não depende apenas da existência
+                    de tratamentos. Também envolve disponibilidade de serviços,
+                    custo, transporte, informação, acessibilidade e atendimento
+                    adequado.
+                </p>
+            </div>
+
+            <div class="social-impact-list">
+                <article class="impact-card">
+                    <span>📚</span>
+                    <div>
+                        <h3>Educação</h3>
+                        <p>
+                            Dificuldades visuais não corrigidas podem atrapalhar
+                            a leitura do quadro, de livros e de materiais
+                            digitais. A identificação precoce e o apoio adequado
+                            ajudam estudantes a participar das atividades
+                            escolares.
+                        </p>
+                    </div>
+                </article>
+
+                <article class="impact-card">
+                    <span>💼</span>
+                    <div>
+                        <h3>Trabalho e renda</h3>
+                        <p>
+                            Algumas tarefas profissionais exigem boa visão
+                            de perto, de longe ou percepção de detalhes.
+                            Dificuldades visuais podem limitar certas atividades
+                            quando não existem adaptações, correção ou apoio.
+                        </p>
+                    </div>
+                </article>
+
+                <article class="impact-card">
+                    <span>🚶</span>
+                    <div>
+                        <h3>Mobilidade e autonomia</h3>
+                        <p>
+                            Enxergar obstáculos, placas e mudanças no ambiente
+                            pode ser importante para a segurança. Pessoas com
+                            deficiência visual podem precisar de acessibilidade,
+                            recursos de orientação e ambientes bem planejados.
+                        </p>
+                    </div>
+                </article>
+
+                <article class="impact-card">
+                    <span>💰</span>
+                    <div>
+                        <h3>Desigualdade de acesso</h3>
+                        <p>
+                            O custo de consultas, exames, transporte e óculos
+                            pode dificultar o cuidado visual de algumas famílias.
+                            Programas públicos, atendimento acessível e iniciativas
+                            comunitárias podem ajudar a reduzir essas barreiras.
+                        </p>
+                    </div>
+                </article>
+
+                <article class="impact-card">
+                    <span>♿</span>
+                    <div>
+                        <h3>Acessibilidade e inclusão</h3>
+                        <p>
+                            Textos ampliáveis, bom contraste, descrição de
+                            imagens, leitores de tela, sinalização acessível
+                            e materiais em formatos alternativos ajudam pessoas
+                            com diferentes condições visuais a participar
+                            das atividades sociais.
+                        </p>
+                    </div>
+                </article>
+            </div>
+
+            <div class="info-card">
+                <h3>Visão saudável é mais do que usar óculos</h3>
+                <p>
+                    Óculos corrigem determinados erros de refração, mas não
+                    tratam todas as doenças oculares. Consultas e exames
+                    ajudam a identificar necessidades específicas e orientar
+                    o cuidado adequado.
+                </p>
+                <p>
+                    A deficiência visual não significa incapacidade para
+                    aprender, trabalhar ou ter autonomia. A inclusão depende
+                    também da remoção de barreiras e da oferta de recursos
+                    adequados.
+                </p>
+            </div>
+        </div>
+
+        <!-- ============ ABA 4: SUSTENTABILIDADE ============ -->
+        <div class="tab-panel" id="chem-sustain">
+            <div class="info-card">
+                <span class="info-label">CONSUMO CONSCIENTE</span>
+                <h3>Prolongar a vida útil também é sustentabilidade</h3>
+                <p>
+                    Sustentabilidade não significa apenas reciclar. Ela também
+                    envolve evitar desperdícios, consertar objetos, reutilizar
+                    materiais em boas condições e escolher produtos duráveis.
+                </p>
+                <p>
+                    No universo da visão, isso pode incluir cuidar dos óculos,
+                    reparar armações, avaliar a possibilidade de reaproveitar
+                    lentes e encaminhar materiais sem uso para iniciativas
+                    adequadas.
+                </p>
+            </div>
+
+            <div class="science-grid">
+                <article class="science-card">
+                    <span class="science-icon">🔧</span>
+                    <h3>Reparar antes de substituir</h3>
+                    <p>
+                        Pequenos consertos podem evitar que uma armação inteira
+                        seja descartada. A manutenção também ajuda a conservar
+                        recursos usados na fabricação.
+                    </p>
+                </article>
+
+                <article class="science-card">
+                    <span class="science-icon">🔄</span>
+                    <h3>Reutilizar quando possível</h3>
+                    <p>
+                        A reutilização mantém um produto em uso por mais tempo.
+                        Ela deve ser feita com segurança e não pode comprometer
+                        a qualidade da visão.
+                    </p>
+                </article>
+
+                <article class="science-card">
+                    <span class="science-icon">🌍</span>
+                    <h3>Reduzir o desperdício</h3>
+                    <p>
+                        Produzir materiais demanda matérias-primas, água,
+                        energia e transporte. Prolongar a vida útil de produtos
+                        pode reduzir parte dessa demanda.
+                    </p>
+                </article>
+
+                <article class="science-card">
+                    <span class="science-icon">🧪</span>
+                    <h3>Destinar corretamente</h3>
+                    <p>
+                        Quando há produtos químicos ou componentes que não
+                        podem ser reutilizados, é importante seguir as
+                        orientações de coleta e tratamento apropriadas.
+                    </p>
+                </article>
+            </div>
+
+            <div class="info-card">
+                <span class="info-label">MEIO AMBIENTE E SOCIEDADE</span>
+                <h3>Uma solução pode gerar dois benefícios</h3>
+                <p>
+                    Quando um projeto recupera óculos em boas condições,
+                    avalia os materiais e encaminha os pares adequados para
+                    doação, pode contribuir tanto para reduzir desperdícios
+                    quanto para ampliar o acesso à correção visual.
+                </p>
+                <p>
+                    Isso não significa que todo óculos usado possa ser doado
+                    diretamente. É necessário verificar as condições do
+                    produto e garantir a avaliação visual de quem vai utilizá-lo.
+                </p>
+            </div>
+
+            <details class="acc">
+                <summary>Por que não devemos descartar produtos químicos de qualquer jeito?</summary>
+                <div class="body">
+                    <p>
+                        Algumas substâncias podem prejudicar organismos e
+                        contaminar água ou solo quando são liberadas sem
+                        tratamento. Produtos de revelação fotográfica e outros
+                        resíduos químicos devem seguir as regras aplicáveis
+                        de manuseio e destinação.
+                    </p>
+                </div>
+            </details>
+
+            <details class="acc">
+                <summary>Todo material reciclável é realmente reciclado?</summary>
+                <div class="body">
+                    <p>
+                        Não necessariamente. A reciclagem depende da composição,
+                        da separação, da infraestrutura disponível e da
+                        existência de processos capazes de recuperar o material.
+                        Por isso, reduzir o consumo e prolongar a vida útil
+                        também são importantes.
+                    </p>
+                </div>
+            </details>
+        </div>
+    </div>
+</section>
+
+    
+    <!-- ================= LINHA DO TEMPO ================= -->
+    <section id="timeline" class="screen">
+        <button class="back" data-go="home">‹ Início</button>
+
+        <h2>🕒 Evolução da Imagem</h2>
+        <p class="lead">
+            Da observação da luz à fotografia digital:
+            descubra os principais marcos dessa evolução.
+            Toque em cada etapa para saber mais.
+        </p>
+
+        <div class="info-card">
+            <span class="info-label">A JORNADA DA IMAGEM</span>
+            <h3>Como aprendemos a registrar o mundo?</h3>
+            <p>
+                A história da fotografia reúne descobertas da Física,
+                da Química e da tecnologia. Primeiro, entendemos como
+                a luz forma imagens; depois, aprendemos a registrá-las
+                e transformá-las em dados digitais.
+            </p>
+        </div>
+
+        
+<div class="timeline-modern">
+
+    <div class="timeline-intro">
+        <span class="timeline-label">HISTÓRIA DA FOTOGRAFIA</span>
+        <h3>Da luz à inteligência artificial</h3>
+        <p>
+            Explore as descobertas que transformaram a maneira
+            como enxergamos, registramos e compartilhamos imagens.
+        </p>
+    </div>
+
+    <!-- Coloque aqui todos os seus tópicos históricos:
+         <details class="acc"> ... </details> -->
+
+    <div class="timeline-modern">
+
+    <div class="timeline-intro">
+        <span class="timeline-label">HISTÓRIA DA FOTOGRAFIA</span>
+        <h3>Da luz à fotografia digital</h3>
+        <p>Descubra os principais avanços na história das imagens.</p>
+    </div>
+
+    <details class="acc">
+        <summary>📷 Século XI — Câmara escura</summary>
+        <p>Ibn al-Haytham estudou a propagação da luz e ajudou a explicar o funcionamento da câmara escura, base da fotografia.</p>
+    </details>
+
+    <details class="acc">
+        <summary>📸 1826 — Primeira fotografia permanente</summary>
+        <p>Joseph Nicéphore Niépce produziu uma das primeiras fotografias permanentes da história.</p>
+    </details>
+
+    <details class="acc">
+        <summary>🖼️ 1839 — Daguerreótipo</summary>
+        <p>Louis Daguerre apresentou um processo fotográfico que tornou a fotografia mais conhecida.</p>
+    </details>
+
+    <details class="acc">
+        <summary>🎞️ 1888 — Fotografia popular</summary>
+        <p>A Kodak popularizou o uso de câmeras com filme, facilitando o registro de momentos do cotidiano.</p>
+    </details>
+
+    <details class="acc">
+        <summary>🎨 1907 — Fotografia colorida</summary>
+        <p>O Autochrome ajudou a popularizar um dos primeiros processos comerciais de fotografia colorida.</p>
+    </details>
+
+    <details class="acc">
+        <summary>💻 1975 — Câmera digital</summary>
+        <p>Steven Sasson, engenheiro da Kodak, desenvolveu um protótipo de câmera digital.</p>
+    </details>
+
+    <details class="acc">
+        <summary>📱 Anos 2000 — Câmeras nos celulares</summary>
+        <p>Os celulares com câmera tornaram a fotografia mais acessível e facilitaram o compartilhamento de imagens.</p>
+    </details>
+
+    <details class="acc">
+        <summary>🤖 Atualidade — Inteligência artificial</summary>
+        <p>A IA permite melhorar imagens, reconhecer objetos e criar recursos que transformam a fotografia e a visão computacional.</p>
+    </details>
+
+</div>
+
+</div>
+
+        <div class="info-card">
+            <span class="info-label">CONEXÃO COM O PROJETO</span>
+            <h3>👁️ Do olho humano à câmera</h3>
+            <p>
+                O olho forma uma imagem na retina e transforma
+                a luz em sinais nervosos. A câmera utiliza
+                lentes e um filme ou sensor para registrar
+                a imagem. Os dois sistemas dependem da luz,
+                mas funcionam de maneiras diferentes.
+            </p>
+            <p>
+                Explore também as seções <b>Olho Humano</b>,
+                <b>Câmara Escura</b>, <b>Luz e Cores</b>,
+                <b>Química</b> e <b>Sustentabilidade</b>
+                para entender melhor cada etapa.
+            </p>
+        </div>
+    </section>
+
+
+    <!-- ================= VISION QUIZ ================= -->
+    <section id="quiz" class="screen">
+        <button class="back" data-go="home">‹ Início</button>
+        <h2>🎮 VISION quiz</h2>
+        <div id="quizContainer"></div>
+    </section>
+
+    <!-- ================= EQUIPE ================= -->
+    <section id="team" class="screen">
+        <button class="back" data-go="home">‹ Início</button>
+        <h2>👥 Equipe</h2>
+
+        <div class="info-card">
+            <h3>Alunos</h3>
+            <ul class="people">
+                <li>Adriel Renan</li>
+                <li>Erick Gabriel</li>
+                <li>João Matheus</li>
+                <li>Davi Antony</li>
+                <li>Eduardo Dias</li>
+                <li>Laura Mariana</li>
+                <li>Carlos Henrique</li>
+                <li>Geovanni Souza</li>
+                <li>Carlos Manoel</li>
+            </ul> 
+
+            <h3>Professores</h3>
+            <ul class="people">
+                <li>Fátima Rodrigues</li>
+                <li>Fernanda Souza <small>(Conselheira)</small></li>
+                <li>Kayo Vinicius <small>(CESAR SCHOOL)</small></li>
+                <li>José Noé</li>
+                <li>Alberi Lopes</li>
+                <li>Camila Silva</li>
+            </ul>
+
+            <div class="school">
+                <strong>EREM Padre Nércio Rodrigues</strong>
+                <span>2ºA • Projeto Sou Cientista</span>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<script src="js/questions.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

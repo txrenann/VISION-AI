@@ -1,0 +1,20 @@
+{
+  "name": "VISION.AI — Projeto Sou Cientista",
+  "short_name": "VISION.AI",
+  "description": "Da luz ao olho, da câmera à IA",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#08090d",
+  "theme_color": "#08090d",
+  "orientation": "portrait",
+  "lang": "pt-BR",
+  "icons": [
+    {
+      "src": "assets/icons/Icon.png",
+      "sizes": "1536x1536",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
